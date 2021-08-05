@@ -12,19 +12,25 @@ package CSCI318.A1T1;
 
 public class Customer {
     
-    private final long id;
-    private final String name; 
+    private final String companyName;
+    private final String address;
+    private final String country;
     
-    public Customer(long id, String name){
-        this.id = id;
-        this.name = name;
+    public Customer(String companyName, String address, String country){
+        this.companyName = companyName;
+        this.address = address;
+        this.country = country;
     }
     
-    public long getId(){
-        return id;
+    public String getCompanyName(){
+        return companyName;
     }
     
-    public String getName(){
-        return name;
+    public String getAddress(){
+        return address;
+    }
+    
+    public String getCountry(){
+        return country;
     }
 }

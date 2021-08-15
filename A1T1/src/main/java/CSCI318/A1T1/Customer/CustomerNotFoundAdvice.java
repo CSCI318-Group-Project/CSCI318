@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1;
+package CSCI318.A1T1.Customer;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author liamt
  */
 @ControllerAdvice
-class ContactNotFoundAdvice {
+class CustomerNotFoundAdvice {
 
   @ResponseBody
-  @ExceptionHandler(ContactNotFoundException.class)
+  @ExceptionHandler(CustomerNotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  String contactNotFoundHandler(ContactNotFoundException ex) {
+  String contactNotFoundHandler(CustomerNotFoundException ex) {
     return ex.getMessage();
   }
 }

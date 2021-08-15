@@ -3,19 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1;
+package CSCI318.A1T1.Contact;
 
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author liamt
  */
 @Entity
+@Table
 public class Contact {
     //Variables
     private @Id @GeneratedValue Long id;

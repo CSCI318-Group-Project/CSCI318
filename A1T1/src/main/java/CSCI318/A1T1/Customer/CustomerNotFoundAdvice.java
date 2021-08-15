@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * @author liamt
  */
+//Returns an error code for wrong requests
 @ControllerAdvice
 class CustomerNotFoundAdvice {
 

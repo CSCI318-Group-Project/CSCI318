@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author liamt
  */
+//Configuration to preload contacts
 @Configuration
 class ContactConfig {
 

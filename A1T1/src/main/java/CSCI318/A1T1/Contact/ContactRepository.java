@@ -12,6 +12,7 @@ package CSCI318.A1T1.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+//Creates a repostiory for contacts
 @Repository
 interface ContactRepository extends JpaRepository<Contact, Long> {
     

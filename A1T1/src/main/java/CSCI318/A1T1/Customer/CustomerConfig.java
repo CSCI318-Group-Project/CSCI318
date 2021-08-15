@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author liamt
  */
+//Configuration to preload customer to repository
 @Configuration
 class CustomerConfig {
 

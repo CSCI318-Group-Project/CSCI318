@@ -9,6 +9,7 @@ package CSCI318.A1T1.Contact;
  *
  * @author liamt
  */
+//Shows an exception when a contact cannot be found
 class ContactNotFoundException extends RuntimeException {
 
   ContactNotFoundException(Long id) {

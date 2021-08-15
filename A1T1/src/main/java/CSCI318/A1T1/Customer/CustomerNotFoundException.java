@@ -9,6 +9,7 @@ package CSCI318.A1T1.Customer;
  *
  * @author liamt
  */
+//returns and exception code when a customer cannot be found by a certain id
 class CustomerNotFoundException extends RuntimeException {
 
   CustomerNotFoundException(Long id) {

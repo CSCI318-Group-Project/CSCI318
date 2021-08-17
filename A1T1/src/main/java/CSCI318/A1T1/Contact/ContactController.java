@@ -42,8 +42,8 @@ class ContactController {
   
   //Creates a POST request for a new contact
   @PostMapping("/Contact/New")
-  public void newContact(@RequestBody Contact contact){
-    contactService.addNewContact(contact);
+  public void newContacts(@RequestBody Contact[] contacts){
+    contactService.addNewContacts(contacts);
   }
   
   //Creates a PUT request to update a customer

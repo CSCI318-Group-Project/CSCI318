@@ -44,8 +44,8 @@ class CustomerController {
   
   //Post request that creates a new customer
   @PostMapping("/Customer/New")
-  public void newCustomer(@RequestBody Customer customer){
-      customerService.addNewCustomer(customer);
+  public void newCustomers(@RequestBody Customer[] customers){
+      customerService.addNewCustomers(customers);
   }
   
   //Put request that updates customer information

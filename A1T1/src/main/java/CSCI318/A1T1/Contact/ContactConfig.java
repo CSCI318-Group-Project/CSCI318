@@ -23,8 +23,6 @@ class ContactConfig {
   @Bean
   CommandLineRunner ContactinitDatabase(ContactRepository contactRepository) {
     return args -> {
-      log.info("Preloading " + contactRepository.save(new Contact("Jim", "0422666552", "Jim@jimsmowing.com", "Gardener")));
-      log.info("Preloading " + contactRepository.save(new Contact("Dan Murphy", "0483955344", "Danmurphy@dans.com", "Bottler")));
     };
   }
 }

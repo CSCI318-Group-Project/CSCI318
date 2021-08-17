@@ -36,6 +36,13 @@ public class CustomerService {
     Optional<Customer> getCustomer(Long customerid){
         return customerRepository.findById(customerid);
     }
+
+    //adds a list of new customers to the repository
+    public void addNewCustomers(Customer[] customers){
+        for (Customer customer : customers) {
+            addNewCustomer(customer);
+        }
+    }
     
     //adds a new customer to the repository
     public void addNewCustomer(Customer customer){

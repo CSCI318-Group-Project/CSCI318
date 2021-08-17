@@ -36,6 +36,13 @@ public class ContactService {
     Optional<Contact> getContact(Long contactid){
         return contactRepository.findById(contactid);
     }
+
+    //Function to add a new contact and inject to repository
+    public void addNewContacts(Contact[] contacts){
+        for (Contact contact : contacts) {
+            addNewContact(contact);
+        }
+    }
     
     //Function to add a new contact and inject to repository
     public void addNewContact(Contact contact){

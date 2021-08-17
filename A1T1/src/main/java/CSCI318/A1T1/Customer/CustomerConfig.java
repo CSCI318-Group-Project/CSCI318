@@ -24,8 +24,6 @@ class CustomerConfig {
   @Bean
   CommandLineRunner CustomerinitDatabase(CustomerRepository customerRepository) {
     return args -> {
-      log.info("Preloading " + customerRepository.save(new Customer("MonstersInc", "ScareFloor", "ScaryTown")));
-      log.info("Preloading " + customerRepository.save(new Customer("Dentist", "42 Wallaby Way", "Australia")));
     };
   }
 }

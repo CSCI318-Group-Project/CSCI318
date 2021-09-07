@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1.Repository;
+package CSCI318.A1T2.Repository;
 
 /**
  *
  * @author liamt
  */
-import CSCI318.A1T1.Model.Contact;
+import CSCI318.A1T2.Model.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1.Service;
+package CSCI318.A1T2.Service;
 
-import CSCI318.A1T1.Repository.CustomerRepository;
-import CSCI318.A1T1.Model.Customer;
+import CSCI318.A1T2.Repository.CustomerRepository;
+import CSCI318.A1T2.Model.Customer;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;

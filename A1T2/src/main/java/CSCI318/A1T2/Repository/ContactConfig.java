@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1.Repository;
-
+package CSCI318.A1T2.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -15,14 +14,14 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author liamt
  */
-//Configuration to preload customer to repository
+//Configuration to preload contacts
 @Configuration
-class CustomerConfig {
+class ContactConfig {
 
-  private static final Logger log = LoggerFactory.getLogger(CustomerConfig.class);
+  private static final Logger log = LoggerFactory.getLogger(ContactConfig.class);
 
   @Bean
-  CommandLineRunner CustomerinitDatabase(CustomerRepository customerRepository) {
+  CommandLineRunner ContactinitDatabase(ContactRepository contactRepository) {
     return args -> {
     };
   }

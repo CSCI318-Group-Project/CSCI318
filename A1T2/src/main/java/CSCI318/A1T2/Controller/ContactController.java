@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1.Controller;
-import CSCI318.A1T1.Service.ContactService;
-import CSCI318.A1T1.Model.Contact;
+package CSCI318.A1T2.Controller;
+import CSCI318.A1T2.Service.ContactService;
+import CSCI318.A1T2.Model.Contact;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;

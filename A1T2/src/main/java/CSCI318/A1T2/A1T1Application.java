@@ -1,4 +1,4 @@
-package CSCI318.A1T1;
+package CSCI318.A1T2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

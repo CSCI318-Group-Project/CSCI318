@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1.Model;
+package CSCI318.A1T2.Model;
 
 import java.util.Objects;
 import javax.persistence.Entity;

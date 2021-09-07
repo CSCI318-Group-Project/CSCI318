@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1.Contact;
+package CSCI318.A1T1.Service;
 
+import CSCI318.A1T1.Repository.ContactRepository;
+import CSCI318.A1T1.Model.Contact;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,17 +25,17 @@ public class ContactService {
     
     //Sets the repository for contacts
     @Autowired
-    ContactService(ContactRepository contactRepository) {
+    public ContactService(ContactRepository contactRepository) {
        this.contactRepository = contactRepository;
     }
     
     //Returns a list of all contacts
-    List<Contact> getContacts() {
+    public List<Contact> getContacts() {
         return contactRepository.findAll();
     }
     
     //Returns a single contact
-    Optional<Contact> getContact(Long contactid){
+    public Optional<Contact> getContact(Long contactid){
         return contactRepository.findById(contactid);
     }
 

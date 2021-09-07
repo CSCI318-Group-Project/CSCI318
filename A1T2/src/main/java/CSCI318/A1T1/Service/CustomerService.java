@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1.Customer;
+package CSCI318.A1T1.Service;
 
+import CSCI318.A1T1.Repository.CustomerRepository;
+import CSCI318.A1T1.Model.Customer;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,17 +25,17 @@ public class CustomerService {
     
     //sets the customer repository
     @Autowired
-    CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository) {
        this.customerRepository = customerRepository;
     }
     
     //returns a list of all customers in the repositoy
-    List<Customer> getCustomers() {
+    public List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
     
     //returns a single customer from the repository
-    Optional<Customer> getCustomer(Long customerid){
+    public Optional<Customer> getCustomer(Long customerid){
         return customerRepository.findById(customerid);
     }
 

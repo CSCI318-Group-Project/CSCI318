@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1.Customer;
-
+package CSCI318.A1T1.Controller;
+import CSCI318.A1T1.Model.Customer;
+import CSCI318.A1T1.Service.CustomerService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.DeleteMapping;

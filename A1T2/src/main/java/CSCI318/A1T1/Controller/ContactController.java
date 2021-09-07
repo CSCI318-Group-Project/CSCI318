@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1.Contact;
+package CSCI318.A1T1.Controller;
+import CSCI318.A1T1.Service.ContactService;
+import CSCI318.A1T1.Model.Contact;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 class ContactController {
 
-  private final ContactService contactService;
+  private ContactService contactService;
 
   //Set the contact service
   ContactController(ContactService contactService) {

@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CSCI318.A1T1.Contact;
+package CSCI318.A1T1.Repository;
 
 /**
  *
  * @author liamt
  */
+
+import CSCI318.A1T1.Model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-//Creates a repostiory for contacts
+//The customer repository
 @Repository
-interface ContactRepository extends JpaRepository<Contact, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
     
 }

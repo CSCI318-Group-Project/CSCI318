@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:3.0.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath CSCI318.A1T1.A1T1Application</exec.args>
+                <exec.args>-classpath %classpath CSCI318.A1T2.A1T2Application</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -39,7 +39,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:3.0.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath CSCI318.A1T1.A1T1Application</exec.args>
+                <exec.args>-classpath %classpath CSCI318.A1T2.A1T2Application</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>

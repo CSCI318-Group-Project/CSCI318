@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Table
 public class Contact {
     //Variables
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue Long contactId;
     private String name;
     private String phone;
     private String email;
@@ -39,7 +39,7 @@ public class Contact {
     
     //Getters for Contact
     public Long getId() {
-        return this.id;
+        return this.contactId;
     }
     public String getName(){
         return this.name;
@@ -56,7 +56,7 @@ public class Contact {
     
     //Setters for Contact
     public void setId(Long id) {
-        this.id = id;
+        this.contactId = id;
     }
     public void setName(String name) {
         this.name = name;
@@ -79,7 +79,7 @@ public class Contact {
     if (!(o instanceof Contact))
       return false;
     Contact contact = (Contact) o;
-    return Objects.equals(this.id, contact.id) &&
+    return Objects.equals(this.contactId, contact.contactId) &&
            Objects.equals(this.name, contact.name) &&
            Objects.equals(this.phone, contact.phone) && 
            Objects.equals(this.email, contact.email) && 
@@ -89,13 +89,13 @@ public class Contact {
     //Hashcode for Contact
     @Override
     public int hashCode() {
-      return Objects.hash(this.id, this.name, this.phone, this.email, this.position);
+      return Objects.hash(this.contactId, this.name, this.phone, this.email, this.position);
     }
     
     //Tostring for Contact
     @Override
     public String toString() {
-      return "Contact{" + "id=" + this.id + 
+      return "Contact{" + "id=" + this.contactId + 
                           ", name='" + this.name + '\'' + 
                           ", phone='" + this.phone + '\'' + 
                           ", email='" + this.email + '\'' + 

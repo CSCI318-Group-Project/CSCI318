@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Table
 public class Customer {
     //Variables
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue Long customerId;
     private String companyName;
     private String address;
     private String country;
@@ -36,7 +36,7 @@ public class Customer {
     
     //Getters for Customer
     public Long getId() {
-        return this.id;
+        return this.customerId;
     }
     public String getCompanyName(){
         return companyName;
@@ -50,7 +50,7 @@ public class Customer {
     
     //Setters for Customer
     public void setId(Long id) {
-        this.id = id;
+        this.customerId = id;
     }
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
@@ -70,7 +70,7 @@ public class Customer {
     if (!(o instanceof Customer))
       return false;
     Customer customer = (Customer) o;
-    return Objects.equals(this.id, customer.id) &&
+    return Objects.equals(this.customerId, customer.customerId) &&
            Objects.equals(this.companyName, customer.companyName) &&
            Objects.equals(this.address, customer.address) && 
            Objects.equals(this.country, customer.country);
@@ -79,13 +79,13 @@ public class Customer {
     //Hashcode for Customer
     @Override
     public int hashCode() {
-      return Objects.hash(this.id, this.companyName, this.address, this.country);
+      return Objects.hash(this.customerId, this.companyName, this.address, this.country);
     }
     
     //ToString for Customer
     @Override
     public String toString() {
-      return "Contact{" + "id=" + this.id + 
+      return "Contact{" + "id=" + this.customerId + 
                           ", companyName='" + this.companyName + '\'' + 
                           ", address='" + this.address + '\'' + 
                           ", country='" + this.country + '\'' + 

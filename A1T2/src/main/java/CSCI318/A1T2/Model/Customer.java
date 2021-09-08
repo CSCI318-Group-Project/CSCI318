@@ -5,10 +5,15 @@
  */
 package CSCI318.A1T2.Model;
 
+import CSCI318.A1T2.Model.Contact;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -16,13 +21,17 @@ import javax.persistence.Table;
  * @author liamt
  */
 @Entity
-@Table
+@Table(name = "Customer")
 public class Customer {
     //Variables
     private @Id @GeneratedValue Long customerId;
     private String companyName;
     private String address;
     private String country;
+    @OneToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "contact_id", referencedColumnName= "contactId")
+    @JsonIgnore
+    private Contact contact;
     
     //Default contstructor
     Customer() {}
@@ -47,6 +56,9 @@ public class Customer {
     public String getCountry(){
         return country;
     }
+    public Contact getContact() {
+        return contact;
+    }
     
     //Setters for Customer
     public void setId(Long id) {
@@ -61,6 +73,9 @@ public class Customer {
     public void setCountry(String country) {
         this.country = country;
     }
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
     
     //Compare Customer
     @Override
@@ -73,13 +88,14 @@ public class Customer {
     return Objects.equals(this.customerId, customer.customerId) &&
            Objects.equals(this.companyName, customer.companyName) &&
            Objects.equals(this.address, customer.address) && 
-           Objects.equals(this.country, customer.country);
+           Objects.equals(this.country, customer.country) &&
+           Objects.equals(this.contact, customer.contact);
     }
     
     //Hashcode for Customer
     @Override
     public int hashCode() {
-      return Objects.hash(this.customerId, this.companyName, this.address, this.country);
+      return Objects.hash(this.customerId, this.companyName, this.address, this.country, this.contact);
     }
     
     //ToString for Customer
@@ -88,7 +104,8 @@ public class Customer {
       return "Contact{" + "id=" + this.customerId + 
                           ", companyName='" + this.companyName + '\'' + 
                           ", address='" + this.address + '\'' + 
-                          ", country='" + this.country + '\'' + 
+                          ", country='" + this.country + '\'' +
+                          ", contact='" + this.contact + '\'' + 
                           '}';
     }
 }

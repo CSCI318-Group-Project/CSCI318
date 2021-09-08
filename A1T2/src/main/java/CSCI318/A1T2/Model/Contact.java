@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author liamt
  */
 @Entity
-@Table
+@Table(name = "Contact" )
 public class Contact {
     //Variables
     private @Id @GeneratedValue Long contactId;

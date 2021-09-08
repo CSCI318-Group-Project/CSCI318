@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package CSCI318.A1T2.Controller;
+import CSCI318.A1T2.Model.Contact;
 import CSCI318.A1T2.Model.Customer;
 import CSCI318.A1T2.Service.CustomerService;
+import CSCI318.A1T2.Service.ContactService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,10 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
 class CustomerController {
 
   private final CustomerService customerService;
+  private final ContactService contactService;
 
   //Set the customer service
-  CustomerController(CustomerService customerService) {
+  CustomerController(CustomerService customerService, ContactService contactService) {
     this.customerService = customerService;
+    this.contactService = contactService;
   }
 
   //Get request that returns all customers
@@ -58,7 +62,15 @@ class CustomerController {
         @RequestParam(required = false) String country){
       customerService.updateCustomer(customerid, companyName, address, country);
   }
+ 
   
+  //Put request that updates contact for the customer by id
+  @PutMapping("/Customer/{id}/Contact/{contactId}")
+  public void updateCustomerContact(@PathVariable Long id, @PathVariable Long contactId) {
+        customerService.updateCustomerContact(id, contactId);
+  }
+    
+
   //Delete request that removes a customer
   @DeleteMapping("/Customer/{customerid}")
   public void deleteCustomer(@PathVariable("customerid") Long customerid){

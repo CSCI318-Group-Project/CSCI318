@@ -5,14 +5,18 @@
  */
 package CSCI318.A1T2.Service;
 
+import CSCI318.A1T2.Model.Contact;
 import CSCI318.A1T2.Repository.CustomerRepository;
 import CSCI318.A1T2.Model.Customer;
+import CSCI318.A1T2.Repository.ContactRepository;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 /**
  *
@@ -22,11 +26,13 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
     
     private final CustomerRepository customerRepository;
+    private final ContactRepository contactRepository;
     
     //sets the customer repository
     @Autowired
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, ContactRepository contactRepository) {
        this.customerRepository = customerRepository;
+       this.contactRepository = contactRepository;
     }
     
     //returns a list of all customers in the repositoy
@@ -69,6 +75,15 @@ public class CustomerService {
             customer.setCountry(country);
         }
         
+    }
+    
+    //updates contact for the customer by id
+    @PutMapping("/libraries/{id}/address/{addressId}")
+    public Customer updateCustomerContact(@PathVariable Long id, @PathVariable Long contactId) {
+        Customer customer = customerRepository.findById(id).orElseThrow(RuntimeException::new);
+        Contact contact = contactRepository.findById(contactId).orElseThrow(RuntimeException::new);
+        customer.setContact(contact);
+        return customerRepository.save(customer);
     }
     
     //deletes a customer from the repository

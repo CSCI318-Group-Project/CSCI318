@@ -30,7 +30,7 @@ public class Product {
     private int stockQuantity;
     
     @OneToOne(cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "ProductDeatail", referencedColumnName= "productDetailId")
+    @JoinColumn(name = "ProductDetail", referencedColumnName= "productDetailId")
     @JsonIgnore
     private ProductDetail productDetail;
     

@@ -78,7 +78,7 @@ public class CustomerService {
     }
     
     //updates contact for the customer by id
-    @PutMapping("/libraries/{id}/address/{addressId}")
+    @PutMapping("/Customer/{id}/Contact/{contactId}")
     public Customer updateCustomerContact(@PathVariable Long id, @PathVariable Long contactId) {
         Customer customer = customerRepository.findById(id).orElseThrow(RuntimeException::new);
         Contact contact = contactRepository.findById(contactId).orElseThrow(RuntimeException::new);
@@ -87,11 +87,17 @@ public class CustomerService {
     }
     
     //deletes a customer from the repository
-    public void deleteCustomer(Long customerid){
-        boolean exists = customerRepository.existsById(customerid);
+    public void deleteCustomer(Long customerId, Long contactId){
+        boolean exists = customerRepository.existsById(customerId);
         if(!exists){
-            throw new IllegalStateException("customer with id " + customerid + " does not exist" );
+            throw new IllegalStateException("customer with id " + customerId + " does not exist" );
         }
-        customerRepository.deleteById(customerid);
+        customerRepository.deleteById(customerId);
+        
+        boolean cexists = contactRepository.existsById(contactId);
+        if(!cexists){
+            throw new IllegalStateException("contact with id " + contactId + " does not exist" );
+        }
+        customerRepository.deleteById(contactId);
     }
 }

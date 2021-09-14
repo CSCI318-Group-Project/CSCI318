@@ -27,12 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 class CustomerController {
 
   private final CustomerService customerService;
-  private final ContactService contactService;
 
   //Set the customer service
   CustomerController(CustomerService customerService, ContactService contactService) {
     this.customerService = customerService;
-    this.contactService = contactService;
   }
 
   //Get request that returns all customers
@@ -72,8 +70,8 @@ class CustomerController {
     
 
   //Delete request that removes a customer
-  @DeleteMapping("/Customer/{customerid}")
-  public void deleteCustomer(@PathVariable("customerid") Long customerid){
-      customerService.deleteCustomer(customerid);
+  @DeleteMapping("/Customer/{customerid}/Contact/{contactId}")
+  public void deleteCustomer(@PathVariable("customerid") Long customerId, @PathVariable("contactid") Long contactId){
+      customerService.deleteCustomer(customerId, contactId);
   }
 }

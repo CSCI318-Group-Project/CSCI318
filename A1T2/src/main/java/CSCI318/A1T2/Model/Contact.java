@@ -10,6 +10,7 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,6 +26,9 @@ public class Contact {
     private String phone;
     private String email;
     private String position;
+    
+    @OneToOne(mappedBy = "Customer")
+    private Customer customer;
     
     //Default Constructor
     Contact(){}
@@ -53,6 +57,9 @@ public class Contact {
     public String getPosition(){
         return this.position;
     }
+    public Customer getCustomer() {
+        return customer;
+    }
     
     //Setters for Contact
     public void setId(Long id) {
@@ -69,6 +76,9 @@ public class Contact {
     }
     public void setPosition(String position) {
         this.position = position;
+    }
+    public void setCusotmer(Customer customer) {
+        this.customer = customer;
     }
     
     //Compare Contacts

@@ -19,11 +19,11 @@ import javax.persistence.Table;
 @Table(name = "ProductDetail" )
 public class ProductDetail {
     //Variables
-    private @Id @GeneratedValue Long productDetaiId;
+    private @Id @GeneratedValue Long productDetailId;
     private String description;
     private String comment;
     
-    @OneToOne(mappedBy = "Product")
+    @OneToOne(mappedBy = "ProductDetail")
     private Product product;
     
     public ProductDetail(){};
@@ -37,7 +37,7 @@ public class ProductDetail {
     
     //Setters
     public void setProductDetaiId(Long productDetaiId) {
-        this.productDetaiId = productDetaiId;
+        this.productDetailId = productDetaiId;
     }
     public void setDescription(String description) {
         this.description = description;
@@ -51,7 +51,7 @@ public class ProductDetail {
     
     //Getters
     public Long getProductDetaiId() {
-        return productDetaiId;
+        return productDetailId;
     }
     public String getDescription() {
         return description;
@@ -66,7 +66,7 @@ public class ProductDetail {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.productDetaiId);
+        hash = 41 * hash + Objects.hashCode(this.productDetailId);
         hash = 41 * hash + Objects.hashCode(this.description);
         hash = 41 * hash + Objects.hashCode(this.comment);
         hash = 41 * hash + Objects.hashCode(this.product);
@@ -91,7 +91,7 @@ public class ProductDetail {
         if (!Objects.equals(this.comment, other.comment)) {
             return false;
         }
-        if (!Objects.equals(this.productDetaiId, other.productDetaiId)) {
+        if (!Objects.equals(this.productDetailId, other.productDetailId)) {
             return false;
         }
         if (!Objects.equals(this.product, other.product)) {
@@ -102,7 +102,7 @@ public class ProductDetail {
 
     @Override
     public String toString() {
-        return "ProductDetail{" + "productDetaiId=" + productDetaiId + ", description=" + description + ", comment=" + comment + ", product=" + product + '}';
+        return "ProductDetail{" + "productDetaiId=" + productDetailId + ", description=" + description + ", comment=" + comment + ", product=" + product + '}';
     }
     
     

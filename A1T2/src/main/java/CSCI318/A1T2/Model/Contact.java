@@ -27,7 +27,7 @@ public class Contact {
     private String email;
     private String position;
     
-    @OneToOne(mappedBy = "Customer")
+    @OneToOne(mappedBy = "contact")
     private Customer customer;
     
     //Default Constructor

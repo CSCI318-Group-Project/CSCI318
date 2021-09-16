@@ -6,6 +6,7 @@
 package CSCI318.A1T2.Model;
 
 import java.util.Objects;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
  * @author liamt
  */
 
+@Entity
 @Table(name = "ProductDetail" )
 public class ProductDetail {
     //Variables
@@ -23,7 +25,7 @@ public class ProductDetail {
     private String description;
     private String comment;
     
-    @OneToOne(mappedBy = "ProductDetail")
+    @OneToOne(mappedBy = "productDetail")
     private Product product;
     
     public ProductDetail(){};

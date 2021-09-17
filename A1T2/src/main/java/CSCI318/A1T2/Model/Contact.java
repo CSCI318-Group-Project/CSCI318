@@ -5,6 +5,7 @@
  */
 package CSCI318.A1T2.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -28,6 +29,7 @@ public class Contact {
     private String position;
     
     @OneToOne(mappedBy = "contact")
+    @JsonIgnore
     private Customer customer;
     
     //Default Constructor

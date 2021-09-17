@@ -30,7 +30,7 @@ public class Customer {
     private String country;
     @OneToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "contact_id", referencedColumnName= "contactId")
-    @JsonIgnore
+    //@JsonIgnore
     private Contact contact;
     
     //Default contstructor

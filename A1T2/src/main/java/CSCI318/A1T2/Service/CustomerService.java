@@ -78,7 +78,6 @@ public class CustomerService {
     }
     
     //updates contact for the customer by id
-    @PutMapping("/Customer/{id}/Contact/{contactId}")
     public Customer updateCustomerContact(@PathVariable Long id, @PathVariable Long contactId) {
         Customer customer = customerRepository.findById(id).orElseThrow(RuntimeException::new);
         Contact contact = contactRepository.findById(contactId).orElseThrow(RuntimeException::new);

@@ -53,11 +53,17 @@ public class Order {
     public String getSupplier() {
         return supplier;
     }
-    public String getProduct() {
+    public String getProductName() {
         return productName;
     }
     public int getQuantity() {
         return quantity;
+    }
+    public Customer getCustomer(){
+        return customer;
+    }
+    public Product getProduct(){
+        return product;
     }
     
     //Setters
@@ -67,11 +73,17 @@ public class Order {
     public void setSupplier(String supplier) {
         this.supplier = supplier;
     }
-    public void setProduct(String productName) {
+    public void setProductName(String productName) {
         this.productName = productName;
     }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+    public void setCustomer(Customer customer){
+        this.customer = customer;
+    }
+    public void setProduct(Product product){
+        this.product = product;
     }
 
     @Override

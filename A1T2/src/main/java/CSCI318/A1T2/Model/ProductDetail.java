@@ -5,6 +5,7 @@
  */
 package CSCI318.A1T2.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class ProductDetail {
     private String comment;
     
     @OneToOne(mappedBy = "productDetail")
+    @JsonIgnore
     private Product product;
     
     public ProductDetail(){};

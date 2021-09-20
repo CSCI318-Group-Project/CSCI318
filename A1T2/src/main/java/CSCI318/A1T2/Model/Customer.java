@@ -28,10 +28,14 @@ public class Customer {
     private String companyName;
     private String address;
     private String country;
+    
     @OneToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "contact_id", referencedColumnName= "contactId")
-    //@JsonIgnore
     private Contact contact;
+    
+    @OneToOne(mappedBy = "customer")
+    @JsonIgnore
+    private Order order;
     
     //Default contstructor
     Customer() {}

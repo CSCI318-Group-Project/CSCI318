@@ -6,9 +6,12 @@
 package CSCI318.A1T2.Model;
 
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,16 +24,25 @@ public class Order {
     //Variables
     private @Id @GeneratedValue Long orderId;
     private String supplier;
-    private String product;
+    private String productName;
     private int quantity;
+    
+    @OneToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "customer_id", referencedColumnName= "customerId")
+    private Customer customer;
+    
+    @OneToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "product_id", referencedColumnName= "productId")
+    private Product product;
+    
 
     //Default contstructor
     public Order(){};
     
     //contstuctor
-    public Order(String supplier, String product, int quantity) {
+    public Order(String supplier, String productName, int quantity) {
         this.supplier = supplier;
-        this.product = product;
+        this.productName = productName;
         this.quantity = quantity;
     }
     
@@ -42,7 +54,7 @@ public class Order {
         return supplier;
     }
     public String getProduct() {
-        return product;
+        return productName;
     }
     public int getQuantity() {
         return quantity;
@@ -55,8 +67,8 @@ public class Order {
     public void setSupplier(String supplier) {
         this.supplier = supplier;
     }
-    public void setProduct(String product) {
-        this.product = product;
+    public void setProduct(String productName) {
+        this.productName = productName;
     }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
@@ -67,7 +79,7 @@ public class Order {
         int hash = 5;
         hash = 53 * hash + Objects.hashCode(this.orderId);
         hash = 53 * hash + Objects.hashCode(this.supplier);
-        hash = 53 * hash + Objects.hashCode(this.product);
+        hash = 53 * hash + Objects.hashCode(this.productName);
         hash = 53 * hash + this.quantity;
         return hash;
     }
@@ -90,7 +102,7 @@ public class Order {
         if (!Objects.equals(this.supplier, other.supplier)) {
             return false;
         }
-        if (!Objects.equals(this.product, other.product)) {
+        if (!Objects.equals(this.productName, other.productName)) {
             return false;
         }
         return Objects.equals(this.orderId, other.orderId);
@@ -98,6 +110,6 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "orderId=" + orderId + ", supplier=" + supplier + ", product=" + product + ", quantity=" + quantity + '}';
+        return "Order{" + "orderId=" + orderId + ", supplier=" + supplier + ", product=" + productName + ", quantity=" + quantity + '}';
     }                                                                                                                       
 }

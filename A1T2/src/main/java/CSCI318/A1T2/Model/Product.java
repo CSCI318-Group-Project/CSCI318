@@ -31,8 +31,11 @@ public class Product {
     
     @OneToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "product_detail_id", referencedColumnName= "productDetailId")
-    @JsonIgnore
     private ProductDetail productDetail;
+    
+    @OneToOne(mappedBy = "product")
+    @JsonIgnore
+    private Order order;
     
     public Product(){};
 

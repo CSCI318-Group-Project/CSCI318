@@ -29,7 +29,7 @@ class CustomerController {
   private final CustomerService customerService;
 
   //Set the customer service
-  CustomerController(CustomerService customerService, ContactService contactService) {
+  CustomerController(CustomerService customerService) {
     this.customerService = customerService;
   }
 

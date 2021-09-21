@@ -58,9 +58,9 @@ public class ProductController {
  
   
   //Put request that updates contact for the product by id
-  @PutMapping("/Product/{id}/ProductDetails/{productDetailsId}")
-  public void updateProductContact(@PathVariable Long id, @PathVariable Long productDetailsId) {
-        productService.updateProductProductDetails(id, productDetailsId);
+  @PutMapping("/Product/{id}/ProductDetail/{productDetailId}")
+  public void updateProductProductDetail(@PathVariable Long id, @PathVariable Long productDetailId) {
+        productService.updateProductProductDetails(id, productDetailId);
   }
     
 }

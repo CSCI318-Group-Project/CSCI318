@@ -85,18 +85,4 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
     
-    //deletes a customer from the repository
-    public void deleteCustomer(Long customerId, Long contactId){
-        boolean exists = customerRepository.existsById(customerId);
-        if(!exists){
-            throw new IllegalStateException("customer with id " + customerId + " does not exist" );
-        }
-        customerRepository.deleteById(customerId);
-        
-        boolean cexists = contactRepository.existsById(contactId);
-        if(!cexists){
-            throw new IllegalStateException("contact with id " + contactId + " does not exist" );
-        }
-        customerRepository.deleteById(contactId);
-    }
 }

@@ -73,13 +73,4 @@ public class ContactService {
             contact.setPosition(position);
         }
     }
-    
-    //Function to delete contact from the repository
-    public void deleteContact(Long contactid){
-        boolean exists = contactRepository.existsById(contactid);
-        if(!exists){
-            throw new IllegalStateException("contact with id " + contactid + " does not exist" );
-        }
-        contactRepository.deleteById(contactid);
-    }
 }

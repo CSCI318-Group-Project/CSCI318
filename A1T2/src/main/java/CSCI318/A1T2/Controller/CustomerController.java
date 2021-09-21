@@ -68,10 +68,4 @@ class CustomerController {
         customerService.updateCustomerContact(id, contactId);
   }
     
-
-  //Delete request that removes a customer
-  @DeleteMapping("/Customer/{customerid}/Contact/{contactId}")
-  public void deleteCustomer(@PathVariable("customerid") Long customerId, @PathVariable("contactid") Long contactId){
-      customerService.deleteCustomer(customerId, contactId);
-  }
 }

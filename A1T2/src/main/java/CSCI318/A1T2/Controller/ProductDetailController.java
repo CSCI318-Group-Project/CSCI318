@@ -5,7 +5,20 @@
  */
 package CSCI318.A1T2.Controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import CSCI318.A1T2.Model.ProductDetail;
+import CSCI318.A1T2.Service.ProductDetailService;
 
 /**
  *
@@ -14,4 +27,43 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProductDetailController {
     
+    private ProductDetailService productDetailService;
+
+  //Set the productDetail service
+  ProductDetailController(ProductDetailService productDetailService) {
+    this.productDetailService = productDetailService;
+  }
+
+  //Send a GET request for all productDetails
+  @GetMapping("/ProductDetail")
+  List<ProductDetail> getProductDetails() {
+    return productDetailService.getProductDetails();
+  }
+  
+  //Send a GET request for a single productDetail by id
+  @GetMapping("/ProductDetail/{productDetailid}")
+  public Optional<ProductDetail> getProductDetail(@PathVariable("productDetailid") Long productDetailid){
+      return productDetailService.getProductDetail(productDetailid);
+  }
+  
+  //Creates a POST request for a new productDetail
+  @PostMapping("/ProductDetail/New")
+  public void newProductDetails(@RequestBody ProductDetail[] productDetails){
+    productDetailService.addNewProductDetails(productDetails);
+  }
+  
+  //Creates a PUT request to update a productDetail
+  @PutMapping("ProductDetail/{productDetailid}")
+  public void updateProductDetail(
+        @PathVariable("productDetailid") Long productDetailid,
+        @RequestParam(required = false) String description,
+        @RequestParam(required = false) String comment){
+      productDetailService.updateProductDetail(productDetailid, description, comment);
+  }
+
+  //Creates a DELETE request for a productDetail
+  @DeleteMapping("/ProductDetail/{productDetailid}")
+  public void deleteProductDetail(@PathVariable("productDetailid") Long productDetailid){
+      productDetailService.deleteProductDetail(productDetailid);
+  }
 }

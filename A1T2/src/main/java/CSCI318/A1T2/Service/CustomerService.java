@@ -16,7 +16,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 
 /**
  *
@@ -84,5 +83,4 @@ public class CustomerService {
         customer.setContact(contact);
         return customerRepository.save(customer);
     }
-    
 }

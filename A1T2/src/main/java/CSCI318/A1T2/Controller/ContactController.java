@@ -48,7 +48,7 @@ class ContactController {
     contactService.addNewContacts(contacts);
   }
   
-  //Creates a PUT request to update a customer
+  //Creates a PUT request to update a contact
   @PutMapping("Contact/{contactid}")
   public void updateContact(
         @PathVariable("contactid") Long contactid,

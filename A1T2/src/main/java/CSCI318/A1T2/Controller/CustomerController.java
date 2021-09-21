@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 package CSCI318.A1T2.Controller;
-import CSCI318.A1T2.Model.Contact;
 import CSCI318.A1T2.Model.Customer;
 import CSCI318.A1T2.Service.CustomerService;
-import CSCI318.A1T2.Service.ContactService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,7 +43,7 @@ class CustomerController {
       return customerService.getCustomer(customerid);
   }
   
-  //Post request that creates a new customer
+  //Post request that creates a list of new customers
   @PostMapping("/Customer/New")
   public void newCustomers(@RequestBody Customer[] customers){
       customerService.addNewCustomers(customers);

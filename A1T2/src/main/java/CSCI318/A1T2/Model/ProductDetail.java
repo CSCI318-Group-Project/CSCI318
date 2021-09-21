@@ -33,10 +33,9 @@ public class ProductDetail {
     public ProductDetail(){};
     
     //Contstuctor
-    public ProductDetail(String description, String comment, Product product) {
+    public ProductDetail(String description, String comment) {
         this.description = description;
         this.comment = comment;
-        this.product = product;
     }
     
     //Setters

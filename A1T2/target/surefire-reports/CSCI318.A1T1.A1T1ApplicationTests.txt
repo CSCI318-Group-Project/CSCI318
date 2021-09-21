@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: CSCI318.A1T1.A1T1ApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.453 s - in CSCI318.A1T1.A1T1ApplicationTests

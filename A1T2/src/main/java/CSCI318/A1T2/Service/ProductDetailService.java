@@ -62,12 +62,4 @@ public class ProductDetailService {
         }        
     }
     
-    //Function to delete productDetail from the repository
-    public void deleteProductDetail(Long productDetailid){
-        boolean exists = productDetailRepository.existsById(productDetailid);
-        if(!exists){
-            throw new IllegalStateException("productDetail with id " + productDetailid + " does not exist" );
-        }
-        productDetailRepository.deleteById(productDetailid);
-    }
 }

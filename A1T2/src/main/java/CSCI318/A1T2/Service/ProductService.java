@@ -82,18 +82,4 @@ public class ProductService {
         return productRepository.save(product);
     }
     
-    //deletes a Product from the repository
-    public void deleteProduct(Long productId, Long productDetailId){
-        boolean exists = productRepository.existsById(productId);
-        if(!exists){
-            throw new IllegalStateException("Product with id " + productId + " does not exist" );
-        }
-        productRepository.deleteById(productId);
-        
-        boolean cexists = productDetailRepository.existsById(productDetailId);
-        if(!cexists){
-            throw new IllegalStateException("contact with id " + productDetailId + " does not exist" );
-        }
-        productDetailRepository.deleteById(productDetailId);
-    }
 }

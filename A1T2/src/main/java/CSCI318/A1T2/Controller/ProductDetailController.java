@@ -61,9 +61,4 @@ public class ProductDetailController {
       productDetailService.updateProductDetail(productDetailid, description, comment);
   }
 
-  //Creates a DELETE request for a productDetail
-  @DeleteMapping("/ProductDetail/{productDetailid}")
-  public void deleteProductDetail(@PathVariable("productDetailid") Long productDetailid){
-      productDetailService.deleteProductDetail(productDetailid);
-  }
 }

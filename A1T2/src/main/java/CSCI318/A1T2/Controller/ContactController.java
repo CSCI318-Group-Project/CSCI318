@@ -59,9 +59,4 @@ class ContactController {
       contactService.updateContact(contactid, name, phone, email, position);
   }
 
-  //Creates a DELETE request for a contact
-  @DeleteMapping("/Contact/{contactid}")
-  public void deleteContact(@PathVariable("contactid") Long contactid){
-      contactService.deleteContact(contactid);
-  }
 }

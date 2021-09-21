@@ -1,0 +1,72 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package CSCI318.A1T2.Controller;
+import CSCI318.A1T2.Model.Product;
+import CSCI318.A1T2.Service.ProductService;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class ProductController {
+    
+  private final ProductService productService;
+
+  //Set the product service
+  ProductController(ProductService productService) {
+    this.productService = productService;
+  }
+
+  //Get request that returns all products
+  @GetMapping("/Product")
+  List<Product> getProducts() {
+    return productService.getProducts();
+  }
+  
+  //Get request that returns a single product from id
+  @GetMapping("/Product/{productId}")
+  public Optional<Product> getProduct(@PathVariable("productId") Long productId){
+      return productService.getProduct(productId);
+  }
+  
+  //Post request that creates a list of new products
+  @PostMapping("/Product/New")
+  public void newProducts(@RequestBody Product[] products){
+      productService.addNewProducts(products);
+  }
+  
+  //Put request that updates product information
+  @PutMapping("Product/{productid}")
+  public void updateProduct(
+        @PathVariable("productid") Long productid,
+        @RequestParam(required = false) String productCategory,
+        @RequestParam(required = false) String productName,
+        @RequestParam(required = false) double price,
+        @RequestParam(required = false) int stockQuantity){
+      productService.updateProduct(productid, productCategory, productName, price, stockQuantity);
+  }
+ 
+  
+  //Put request that updates contact for the product by id
+  @PutMapping("/Product/{id}/ProductDetails/{productDetailsId}")
+  public void updateProductContact(@PathVariable Long id, @PathVariable Long productDetailsId) {
+        productService.updateProductProductDetails(id, productDetailsId);
+  }
+    
+
+  //Delete request that removes a product
+  @DeleteMapping("/Product/{productId}/ProductDetails/{productDetailsId}")
+  public void deleteProduct(@PathVariable("productId") Long productId, @PathVariable("productDetailsId") Long productDetailsId){
+      productService.deleteProduct(productId, productDetailsId);
+  }
+}

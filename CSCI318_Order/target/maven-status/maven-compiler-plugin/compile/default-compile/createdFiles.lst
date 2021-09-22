@@ -1,0 +1,5 @@
+Repository\OrderRepository.class
+Controller\OrderController.class
+Model\Order.class
+Service\OrderService.class
+Application\OrderApplication.class

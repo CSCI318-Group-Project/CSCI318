@@ -37,7 +37,7 @@ public class Order {
     
 
     //Default contstructor
-    public Order(){};
+    public Order(){}
     
     //contstuctor
     public Order(String supplier, String productName, int quantity) {

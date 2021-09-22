@@ -38,7 +38,7 @@ public class Customer {
     private Order order;
     
     //Default contstructor
-    Customer() {}
+    Customer(){}
     
     //Constructor
     public Customer(String companyName, String address, String country){
@@ -63,6 +63,9 @@ public class Customer {
     public Contact getContact() {
         return contact;
     }
+    public Order getOrder() {
+        return order;
+    }
     
     //Setters for Customer
     public void setId(Long id) {
@@ -80,6 +83,9 @@ public class Customer {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
+    public void setOrder(Order order) {
+        this.order = order;
+    }
     
     //Compare Customer
     @Override
@@ -93,13 +99,14 @@ public class Customer {
            Objects.equals(this.companyName, customer.companyName) &&
            Objects.equals(this.address, customer.address) && 
            Objects.equals(this.country, customer.country) &&
-           Objects.equals(this.contact, customer.contact);
+           Objects.equals(this.contact, customer.contact) &&
+           Objects.equals(this.order, customer.order) ;
     }
     
     //Hashcode for Customer
     @Override
     public int hashCode() {
-      return Objects.hash(this.customerId, this.companyName, this.address, this.country, this.contact);
+      return Objects.hash(this.customerId, this.companyName, this.address, this.country, this.contact, this.order);
     }
     
     //ToString for Customer
@@ -110,6 +117,7 @@ public class Customer {
                           ", address='" + this.address + '\'' + 
                           ", country='" + this.country + '\'' +
                           ", contact='" + this.contact + '\'' + 
+                          ", order='" + this.order + '\'' +
                           '}';
     }
 }

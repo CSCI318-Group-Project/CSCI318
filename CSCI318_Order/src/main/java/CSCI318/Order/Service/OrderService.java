@@ -81,22 +81,4 @@ public class OrderService {
         
     }
     
-    /*
-    //updates customer for the order by id
-    public Order updateOrderCustomer(@PathVariable Long id, @PathVariable Long customerId) {
-        Order order = orderRepository.findById(id).orElseThrow(RuntimeException::new);       
-        Customer customer = customerRepository.findById(customerId).orElseThrow(RuntimeException::new);
-        order.setCustomer(customer);
-        return orderRepository.save(order);
-    }
-    
-    //updates product for the order by id
-    public Order updateOrderProduct(@PathVariable Long id, @PathVariable Long productId) {
-        Order order = orderRepository.findById(id).orElseThrow(RuntimeException::new);
-        Product product = productRepository.findById(productId).orElseThrow(RuntimeException::new);
-        order.setProduct(product);
-        return orderRepository.save(order);
-    }
-    */
-    
 }

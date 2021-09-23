@@ -57,19 +57,5 @@ public class OrderController {
         @RequestParam(required = false) int quantity){
       orderService.updateOrder(orderId, supplier, productName, quantity);
   }
- 
-  /*
-  //Put request that updates customer for the order by id
-  @PutMapping("/Order/{id}/Customer/{customerId}")
-  public void updateOrderCustomer(@PathVariable Long id, @PathVariable Long customerId) {
-        orderService.updateOrderCustomer(id, customerId);
-  }
-  
-  //Put request that updates product for the order by id
-  @PutMapping("/Order/{id}/Product/{productId}")
-  public void updateOrderProduct(@PathVariable Long id, @PathVariable Long productId) {
-        orderService.updateOrderProduct(id, productId);
-  }
-*/
     
 }

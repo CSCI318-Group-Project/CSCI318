@@ -82,7 +82,7 @@ public class Contact {
         this.position = position;
     }
     /*
-    public void setCusotmer(Customer customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
     */

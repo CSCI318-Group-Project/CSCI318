@@ -55,12 +55,12 @@ public class ProductController {
       productService.updateProduct(productid, productCategory, productName, price, stockQuantity);
   }
  
-  /*
+  
   //Put request that updates contact for the product by id
   @PutMapping("/Product/{id}/ProductDetail/{productDetailId}")
   public void updateProductProductDetail(@PathVariable Long id, @PathVariable Long productDetailId) {
         productService.updateProductProductDetails(id, productDetailId);
   }
-  */
+  
     
 }

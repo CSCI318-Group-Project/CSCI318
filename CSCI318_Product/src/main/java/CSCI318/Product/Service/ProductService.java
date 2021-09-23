@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
-    /*private final ProductDetailRepository productDetailRepository;*/
+    private final ProductDetailRepository productDetailRepository;
     
     //Sets the repository for product
     @Autowired
-    public ProductService(ProductRepository productRepository/*, ProductDetailRepository productDetailRepository*/) {
+    public ProductService(ProductRepository productRepository, ProductDetailRepository productDetailRepository) {
        this.productRepository = productRepository;
-       /*this.productDetailRepository = productDetailRepository;*/
+       this.productDetailRepository = productDetailRepository;
     }
 
     //returns a list of all products in the repositoy
@@ -73,7 +73,7 @@ public class ProductService {
             Product.setStockQuantity(stockQuantity);
         }        
     }
-    /*
+    
     //updates productDetails for the Product by id
     public Product updateProductProductDetails(@PathVariable Long id, @PathVariable Long productDetailId) {
         Product product = productRepository.findById(id).orElseThrow(RuntimeException::new);
@@ -81,5 +81,5 @@ public class ProductService {
         product.setProductDetail(productDetail);
         return productRepository.save(product);
     }
-    */
+    
 }

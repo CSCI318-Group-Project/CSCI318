@@ -54,11 +54,11 @@ class CustomerController {
       customerService.updateCustomer(customerid, companyName, address, country);
   }
  
-  /*
+  
   //Put request that updates contact for the customer by id
   @PutMapping("/Customer/{id}/Contact/{contactId}")
   public void updateCustomerContact(@PathVariable Long id, @PathVariable Long contactId) {
         customerService.updateCustomerContact(id, contactId);
   }
-  */
+  
 }

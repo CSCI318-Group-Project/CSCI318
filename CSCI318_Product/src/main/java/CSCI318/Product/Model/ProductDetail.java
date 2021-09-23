@@ -26,11 +26,11 @@ public class ProductDetail {
     private String description;
     private String comment;
     
-    /*
+    
     @OneToOne(mappedBy = "productDetail")
     @JsonIgnore
     private Product product;
-    */
+    
     
     public ProductDetail(){};
     
@@ -50,11 +50,9 @@ public class ProductDetail {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    /*
     public void setProduct(Product product) {
         this.product = product;
     }
-    */
     
     //Getters
     public Long getProductDetaiId() {
@@ -66,18 +64,17 @@ public class ProductDetail {
     public String getComment() {
         return comment;
     }
-    /*
     public Product getProduct() {
         return product;
     }
-    */
+
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 41 * hash + Objects.hashCode(this.productDetailId);
         hash = 41 * hash + Objects.hashCode(this.description);
         hash = 41 * hash + Objects.hashCode(this.comment);
-       //hash = 41 * hash + Objects.hashCode(this.product);
+        hash = 41 * hash + Objects.hashCode(this.product);
         return hash;
     }
 
@@ -102,17 +99,15 @@ public class ProductDetail {
         if (!Objects.equals(this.productDetailId, other.productDetailId)) {
             return false;
         }
-        /*
         if (!Objects.equals(this.product, other.product)) {
             return false;
         }
-        */
         return true;
     }
 
     @Override
     public String toString() {
-        return "ProductDetail{" + "productDetaiId=" + productDetailId + ", description=" + description + ", comment=" + comment + /*", product=" + product +*/ '}';
+        return "ProductDetail{" + "productDetaiId=" + productDetailId + ", description=" + description + ", comment=" + comment + ", product=" + product + '}';
     }
     
     

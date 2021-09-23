@@ -25,13 +25,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class CustomerService {
     
     private final CustomerRepository customerRepository;
-   /* private final ContactRepository contactRepository;*/
+   private final ContactRepository contactRepository;
     
     //sets the customer repository
     @Autowired
-    public CustomerService(CustomerRepository customerRepository/*, ContactRepository contactRepository*/) {
+    public CustomerService(CustomerRepository customerRepository, ContactRepository contactRepository) {
        this.customerRepository = customerRepository;
-       //this.contactRepository = contactRepository;
+       this.contactRepository = contactRepository;
     }
     
     //returns a list of all customers in the repositoy
@@ -76,11 +76,11 @@ public class CustomerService {
         
     }
     
-    /*//updates contact for the customer by id
+    //updates contact for the customer by id
     public Customer updateCustomerContact(@PathVariable Long id, @PathVariable Long contactId) {
         Customer customer = customerRepository.findById(id).orElseThrow(RuntimeException::new);
         Contact contact = contactRepository.findById(contactId).orElseThrow(RuntimeException::new);
         customer.setContact(contact);
         return customerRepository.save(customer);
-    }*/
+    }
 }

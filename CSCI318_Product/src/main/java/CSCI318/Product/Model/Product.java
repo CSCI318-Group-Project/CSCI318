@@ -29,11 +29,11 @@ public class Product {
     private double price;
     private int stockQuantity;
     
-    /*
+    
     @OneToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "product_detail_id", referencedColumnName= "productDetailId")
     private ProductDetail productDetail;
-    
+    /*
     @OneToOne(mappedBy = "product")
     @JsonIgnore
     private Order order;
@@ -66,11 +66,10 @@ public class Product {
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
-    /*
     public void setProductDetail(ProductDetail productDetail) {
         this.productDetail = productDetail;
     }
-    */
+    
     
     //Getters
     public Long getProductId() {
@@ -88,11 +87,10 @@ public class Product {
     public int getStockQuantity() {
         return stockQuantity;
     }
-    /*
     public ProductDetail getProductDetail() {
         return productDetail;
     }
-    */
+    
 
     @Override
     public int hashCode() {
@@ -102,7 +100,7 @@ public class Product {
         hash = 47 * hash + Objects.hashCode(this.name);
         hash = 47 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
         hash = 47 * hash + this.stockQuantity;
-        /*hash = 47 * hash + Objects.hashCode(this.productDetail);*/
+        hash = 47 * hash + Objects.hashCode(this.productDetail);
         return hash;
     }
 
@@ -133,17 +131,15 @@ public class Product {
         if (!Objects.equals(this.productId, other.productId)) {
             return false;
         }
-        /*
         if (!Objects.equals(this.productDetail, other.productDetail)) {
             return false;
         }
-        */
         return true;
     }
 
     @Override
     public String toString() {
-        return "Product{" + "productId=" + productId + ", productCategory=" + productCategory + ", name=" + name + ", price=" + price + ", stockQuantity=" + stockQuantity /*+ ", productDetail=" + productDetail*/ + '}';
+        return "Product{" + "productId=" + productId + ", productCategory=" + productCategory + ", name=" + name + ", price=" + price + ", stockQuantity=" + stockQuantity + ", productDetail=" + productDetail + '}';
     }
     
     

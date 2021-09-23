@@ -28,9 +28,9 @@ public class Contact {
     private String email;
     private String position;
     
-    /*@OneToOne(mappedBy = "contact")
+    @OneToOne(mappedBy = "contact")
     @JsonIgnore
-    private Customer customer;*/
+    private Customer customer;
     
     //Default Constructor
     Contact(){}
@@ -59,12 +59,11 @@ public class Contact {
     public String getPosition(){
         return this.position;
     }
-    /*
+    
     public Customer getCustomer() {
         return customer;
     }
-    */
-    
+   
     //Setters for Contact
     public void setId(Long id) {
         this.contactId = id;
@@ -81,11 +80,11 @@ public class Contact {
     public void setPosition(String position) {
         this.position = position;
     }
-    /*
+    
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    */
+    
     
     //Compare Contacts
     @Override

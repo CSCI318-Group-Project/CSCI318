@@ -21,7 +21,7 @@ import javax.persistence.Table;
  * @author liamt
  */
 @Entity
-@Table(name = "Customer")
+@Table(name = "CustomerTable")
 public class Customer {
     //Variables
     private @Id @GeneratedValue Long customerId;

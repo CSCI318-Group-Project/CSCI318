@@ -38,8 +38,8 @@ public class OrderController {
   
   //Get request that returns a single order from id
   @GetMapping("/Order/{orderid}")
-  public Optional<Order> getOrder(@PathVariable("orderid") Long orderid){
-      return orderService.getOrder(orderid);
+  public Optional<Order> getOrder(@PathVariable("orderId") Long orderId){
+      return orderService.getOrder(orderId);
   }
   
   //Post request that creates a new order

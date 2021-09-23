@@ -19,13 +19,14 @@ import javax.persistence.Table;
  * @author liamt
  */
 @Entity
-@Table(name = "Order")
+@Table(name = "OrderTable")
 public class Order {
     //Variables
     private @Id @GeneratedValue Long orderId;
     private String supplier;
     private String productName;
     private int orderQuantity;
+    
     /*
     @OneToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "customer_id", referencedColumnName= "customerId")
@@ -40,10 +41,10 @@ public class Order {
     public Order(){};
     
     //contstuctor
-    public Order(String supplier, String productName, int quantity) {
+    public Order(String supplier, String productName, int orderQuantity) {
         this.supplier = supplier;
         this.productName = productName;
-        this.orderQuantity = quantity;
+        this.orderQuantity = orderQuantity;
     }
     
     //Getters
@@ -119,6 +120,9 @@ public class Order {
             return false;
         }
         if (!Objects.equals(this.productName, other.productName)) {
+            return false;
+        }
+        if (!Objects.equals(this.orderId, other.orderId)) {
             return false;
         }
         return Objects.equals(this.orderId, other.orderId);

@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "ProductDetail" )
+@Table(name = "ProductDetailTable" )
 public class ProductDetail {
     //Variables
     private @Id @GeneratedValue Long productDetailId;

@@ -25,7 +25,7 @@ public class Order {
     private @Id @GeneratedValue Long orderId;
     private String supplier;
     private String productName;
-    private int quantity;
+    private int orderQuantity;
     /*
     @OneToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "customer_id", referencedColumnName= "customerId")
@@ -37,13 +37,13 @@ public class Order {
     */
 
     //Default contstructor
-    public Order(){}
+    public Order(){};
     
     //contstuctor
     public Order(String supplier, String productName, int quantity) {
         this.supplier = supplier;
         this.productName = productName;
-        this.quantity = quantity;
+        this.orderQuantity = quantity;
     }
     
     //Getters
@@ -56,8 +56,8 @@ public class Order {
     public String getProductName() {
         return productName;
     }
-    public int getQuantity() {
-        return quantity;
+    public int getOrderQuantity() {
+        return orderQuantity;
     }
     /*
     public Customer getCustomer(){
@@ -78,8 +78,8 @@ public class Order {
     public void setProductName(String productName) {
         this.productName = productName;
     }
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setOrderQuantity(int orderQuantity) {
+        this.orderQuantity = orderQuantity;
     }
     /*
     public void setCustomer(Customer customer){
@@ -96,7 +96,7 @@ public class Order {
         hash = 53 * hash + Objects.hashCode(this.orderId);
         hash = 53 * hash + Objects.hashCode(this.supplier);
         hash = 53 * hash + Objects.hashCode(this.productName);
-        hash = 53 * hash + this.quantity;
+        hash = 53 * hash + this.orderQuantity;
         return hash;
     }
 
@@ -112,7 +112,7 @@ public class Order {
             return false;
         }
         final Order other = (Order) obj;
-        if (this.quantity != other.quantity) {
+        if (this.orderQuantity != other.orderQuantity) {
             return false;
         }
         if (!Objects.equals(this.supplier, other.supplier)) {
@@ -126,6 +126,6 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "orderId=" + orderId + ", supplier=" + supplier + ", product=" + productName + ", quantity=" + quantity + '}';
+        return "Order{" + "orderId=" + orderId + ", supplier=" + supplier + ", product=" + productName + ", orderQuantity=" + orderQuantity + '}';
     }                                                                                                                       
 }

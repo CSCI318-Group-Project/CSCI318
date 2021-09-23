@@ -5,6 +5,7 @@
  */
 package CSCI318.Order.Model;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -103,4 +104,12 @@ public class Order {
     public String toString() {
         return "Order{" + "orderId=" + orderId + ", supplier=" + supplier + ", product=" + productName + ", orderQuantity=" + orderQuantity + '}';
     }                                                                                                                       
+
+    public void setSupplier(JsonNode name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setProductName(JsonNode product) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

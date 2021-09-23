@@ -7,6 +7,7 @@ package CSCI318.Order.Controller;
 
 import CSCI318.Order.Model.Order;
 import CSCI318.Order.Service.OrderService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,9 +44,9 @@ public class OrderController {
   }
   
   //Post request that creates a new order
-  @PostMapping("/Order/New")
-  public void newOrders(@RequestBody Order[] orders){
-      orderService.addNewOrder(orders);
+  @PostMapping("/Order/Customer/{customerId}/Product/{productId}/New")
+  public void newOrders(@RequestBody Order orders, @PathVariable("customerId") Long customerId, @PathVariable("productId") Long productId) throws JsonProcessingException{
+      orderService.addNewOrder(orders, customerId, productId);
   }
     
 }

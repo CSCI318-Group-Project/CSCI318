@@ -60,25 +60,5 @@ public class OrderService {
     public void addNewOrder(Order order){
         orderRepository.save(order);
     }
-    
-    //updates a order within the repository
-    @Transactional
-    public void updateOrder(Long orderid, String supplier, String productName, int quantity){
-        Order order = orderRepository.findById(orderid)
-                .orElseThrow(()-> new IllegalStateException("Order with id " + orderid + " does not exist" ));
-        
-        if(supplier != null && supplier.length() > 0 && !Objects.equals(order.getSupplier(), supplier)){
-            order.setSupplier(supplier);
-        }
-        
-        if(productName != null && productName.length() > 0 && !Objects.equals(order.getProductName(), productName)){
-            order.setProductName(productName);
-        }
-        
-        if(quantity > 0 && !Objects.equals(order.getQuantity(), quantity)){
-            order.setQuantity(quantity);
-        }
-        
-    }
-    
+       
 }

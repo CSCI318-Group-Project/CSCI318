@@ -47,15 +47,5 @@ public class OrderController {
   public void newOrders(@RequestBody Order[] orders){
       orderService.addNewOrder(orders);
   }
-  
-  //Put request that updates order information
-  @PutMapping("Order/{orderid}")
-  public void updateOrder(
-        @PathVariable("orderid") Long orderId,
-        @RequestParam(required = false) String supplier,
-        @RequestParam(required = false) String productName,
-        @RequestParam(required = false) int quantity){
-      orderService.updateOrder(orderId, supplier, productName, quantity);
-  }
     
 }

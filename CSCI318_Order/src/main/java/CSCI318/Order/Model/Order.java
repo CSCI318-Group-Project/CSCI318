@@ -6,12 +6,9 @@
 package CSCI318.Order.Model;
 
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -26,16 +23,6 @@ public class Order {
     private String supplier;
     private String productName;
     private int orderQuantity;
-    
-    /*
-    @OneToOne(cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "customer_id", referencedColumnName= "customerId")
-    private Customer customer;
-    
-    @OneToOne(cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "product_id", referencedColumnName= "productId")
-    private Product product;
-    */
 
     //Default contstructor
     public Order(){};
@@ -60,14 +47,6 @@ public class Order {
     public int getOrderQuantity() {
         return orderQuantity;
     }
-    /*
-    public Customer getCustomer(){
-        return customer;
-    }
-    public Product getProduct(){
-        return product;
-    }
-    */
     
     //Setters
     public void setId(Long orderId) {
@@ -82,14 +61,6 @@ public class Order {
     public void setOrderQuantity(int orderQuantity) {
         this.orderQuantity = orderQuantity;
     }
-    /*
-    public void setCustomer(Customer customer){
-        this.customer = customer;
-    }
-    public void setProduct(Product product){
-        this.product = product;
-    }
-    */
 
     @Override
     public int hashCode() {

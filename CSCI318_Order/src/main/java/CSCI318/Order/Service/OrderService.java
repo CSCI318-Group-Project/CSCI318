@@ -24,19 +24,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
-    /*
-    private final CustomerRepository customerRepository;
-    private final ProductRepository productRepository;
-    */
     
     //Sets the repository for Orders
     @Autowired
-    public OrderService(OrderRepository orderRepository/*, CustomerRepository customerRepository, ProductRepository productRepository*/) {
+    public OrderService(OrderRepository orderRepository) {
        this.orderRepository = orderRepository;
-       /*
-       this.customerRepository = customerRepository;
-       this.productRepository = productRepository;
-    */
     }
     
     //returns a list of all orders in the repositoy

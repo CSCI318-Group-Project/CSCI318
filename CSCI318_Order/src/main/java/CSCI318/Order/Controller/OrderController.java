@@ -13,8 +13,6 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,11 +40,10 @@ public class OrderController {
   public Optional<Order> getOrder(@PathVariable("orderId") Long orderId){
       return orderService.getOrder(orderId);
   }
-  
+
   //Post request that creates a new order
-  @PostMapping("/Order/Customer/{customerId}/Product/{productId}/New")
-  public void newOrders(@RequestBody Order orders, @PathVariable("customerId") Long customerId, @PathVariable("productId") Long productId) throws JsonProcessingException{
-      orderService.addNewOrder(orders, customerId, productId);
+  @PostMapping("/Order/CreateOrder")
+  public void newOrders(@RequestParam Long custID, @RequestParam long productID, @RequestParam int quantity) throws JsonProcessingException{
+    orderService.addNewOrder(custID, productID, quantity);
   }
-    
 }

@@ -5,7 +5,6 @@
  */
 package CSCI318.Order.Model;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,55 +20,64 @@ import javax.persistence.Table;
 public class Order {
     //Variables
     private @Id @GeneratedValue Long orderId;
-    private String supplier;
-    private String productName;
-    private int orderQuantity;
+    private Long customerId;
+    private String customerAddress;
+    private String customerPhone;
+    private Long productId;
+    private double productPrice;
+    private int quantity;
 
     //Default contstructor
     public Order(){};
     
     //contstuctor
-    public Order(String supplier, String productName, int orderQuantity) {
-        this.supplier = supplier;
-        this.productName = productName;
-        this.orderQuantity = orderQuantity;
+    public Order(Long custID, Long productID, int quantity, String customerAddress, String customerPhone, double productPrice) {
+        this.customerId = custID;
+        this.productId = productID;
+        this.quantity = quantity;
+        this.customerAddress = customerAddress;
+        this.customerPhone = customerPhone;
+        this.productPrice = productPrice;
     }
     
     //Getters
     public Long getId() {
         return orderId;
     }
-    public String getSupplier() {
-        return supplier;
+
+    public Long getCustomerId() {
+        return customerId;
     }
-    public String getProductName() {
-        return productName;
+
+    public Long getProductId() {
+        return productId;
     }
-    public int getOrderQuantity() {
-        return orderQuantity;
+
+    public String getCustomerAddress() {
+        return customerAddress;
     }
-    
-    //Setters
-    public void setId(Long orderId) {
-        this.orderId = orderId;
+
+    public String getCustomerPhone() {
+        return customerPhone;
     }
-    public void setSupplier(String supplier) {
-        this.supplier = supplier;
+
+    public double getProductPrice() {
+        return productPrice;
     }
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-    public void setOrderQuantity(int orderQuantity) {
-        this.orderQuantity = orderQuantity;
+
+    public int getQuantity() {
+        return quantity;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
         hash = 53 * hash + Objects.hashCode(this.orderId);
-        hash = 53 * hash + Objects.hashCode(this.supplier);
-        hash = 53 * hash + Objects.hashCode(this.productName);
-        hash = 53 * hash + this.orderQuantity;
+        hash = 53 * hash + Objects.hashCode(this.productId);
+        hash = 53 * hash + Objects.hashCode(this.customerId);
+        hash = 53 * hash + Objects.hashCode(this.customerAddress);
+        hash = 53 * hash + Objects.hashCode(this.customerPhone);
+        hash = 53 * hash + this.quantity;
         return hash;
     }
 
@@ -85,13 +93,19 @@ public class Order {
             return false;
         }
         final Order other = (Order) obj;
-        if (this.orderQuantity != other.orderQuantity) {
+        if (this.quantity != other.quantity) {
             return false;
         }
-        if (!Objects.equals(this.supplier, other.supplier)) {
+        if (!Objects.equals(this.productId, other.productId)) {
             return false;
         }
-        if (!Objects.equals(this.productName, other.productName)) {
+        if (!Objects.equals(this.customerId, other.customerId)) {
+            return false;
+        }
+        if (!Objects.equals(this.customerAddress, other.customerAddress)) {
+            return false;
+        }
+        if (!Objects.equals(this.customerPhone, other.customerPhone)) {
             return false;
         }
         if (!Objects.equals(this.orderId, other.orderId)) {
@@ -102,14 +116,6 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "orderId=" + orderId + ", supplier=" + supplier + ", product=" + productName + ", orderQuantity=" + orderQuantity + '}';
+        return "Order{" + "orderId=" + orderId + ", customerId=" + customerId + ", productId=" + productId + ", quantity=" + quantity + '}';
     }                                                                                                                       
-
-    public void setSupplier(JsonNode name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void setProductName(JsonNode product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

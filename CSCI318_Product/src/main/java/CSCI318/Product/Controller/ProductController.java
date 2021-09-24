@@ -62,5 +62,14 @@ public class ProductController {
         productService.updateProductProductDetails(id, productDetailId);
   }
   
-    
+  //Get request that returns a single customers address and phone number if the id exist
+  @GetMapping("/Product/CheckInventory/{productId}/{quantity}")
+  public double checkInventory(@PathVariable("productId") Long productId, @PathVariable("quantity") int quantity){
+      return productService.checkInventory(productId, quantity);
+  }
+
+  @GetMapping("/Product/UpdateStock/{productId}/{quantity}")
+  public void updateStock(@PathVariable("productId") Long productId, @PathVariable("quantity") int quantity){
+      productService.updateStock(productId, quantity);
+  }
 }

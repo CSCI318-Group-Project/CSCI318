@@ -1,6 +1,7 @@
 package CSCI318.Customer.Controller;
 
 import CSCI318.Customer.Model.Customer;
+import CSCI318.Customer.Model.CustomerAddressPhone;
 import CSCI318.Customer.Service.CustomerService;
 import java.util.List;
 import java.util.Optional;
@@ -60,5 +61,11 @@ class CustomerController {
   public void updateCustomerContact(@PathVariable Long id, @PathVariable Long contactId) {
         customerService.updateCustomerContact(id, contactId);
   }
+
   
+  //Get request that returns a single customers address and phone number if the id exist
+  @GetMapping("/Customer/Validate/{customerid}")
+  public CustomerAddressPhone validateCustomer(@PathVariable("customerid") Long customerid){
+      return customerService.validateCustomer(customerid);
+  }
 }

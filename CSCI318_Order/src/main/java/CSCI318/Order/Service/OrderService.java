@@ -12,15 +12,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -47,33 +42,41 @@ public class OrderService {
         return orderRepository.findById(orderid);
     }
 
-    /*
-    //adds a list of new orders to the repository
-    public void addNewOrder(Order[] orders){
-        for (Order order : orders) {
-            addNewOrder(order);
-        }
-    }
-    */
     //adds a new order to the repository
-    public void addNewOrder(Order order, Long customerId, Long productId) throws JsonProcessingException{
+    public void addNewOrder(Long custID, Long productID, int quantity) throws JsonProcessingException{
         RestTemplate restTemplate = new RestTemplate();
-        String customerUrl = "http://localhost:1010/Customer";
-        ResponseEntity<String> customerResponse = restTemplate.getForEntity(customerUrl + customerId , String.class);
+
+        //validate the customersID and return the customers phone and address
+        String customerUrl = "http://localhost:1010/Customer/Validate/";
+        ResponseEntity<String> customerResponse = restTemplate.getForEntity(customerUrl + custID , String.class);
         
         ObjectMapper mapper = new ObjectMapper();
         JsonNode custRoot = mapper.readTree(customerResponse.getBody());
-        String companyName = custRoot.path("companyName").toString();
-        order.setSupplier(companyName);
         
-        String productUrl = "http://localhost:1010/Product";
-        ResponseEntity<String> productResponse = restTemplate.getForEntity(productUrl + productId , String.class);
-        
+        String customerAddress = custRoot.path("address").toString().replace("\"", "");
+        String customerPhone = custRoot.path("phone").toString().replace("\"", "");
+
+        //validate the productID and return the products price if there is enough stock
+        String productUrl = "http://localhost:2020/Product/CheckInventory/";
+        ResponseEntity<String> productResponse = restTemplate.getForEntity(productUrl + productID + "/" + quantity , String.class);
+        System.out.println(productResponse);
+
         JsonNode prodRoot = mapper.readTree(productResponse.getBody());
-        String product = prodRoot.path("name").toString();
-        order.setProductName(product);
+        double productPrice = prodRoot.doubleValue();
         
-        orderRepository.save(order);
+        if (productPrice <= 0) {
+               //the productID was not valid or there was not enough stock availible
+               return;
+        }
+        
+        //Create the order
+        Order order = new Order(custID, productID, quantity, customerAddress, customerPhone, productPrice);
+        orderRepository.save(order); 
+        
+        //Update the product DB to reflect the change in quantity
+        String productUpdateUrl = "http://localhost:2020/Product/UpdateStock/";
+        ResponseEntity<String> productUpdateResponse = restTemplate.getForEntity(productUpdateUrl + productID + "/" + quantity , String.class);
+        System.out.println(productUpdateResponse);
     }
        
 }

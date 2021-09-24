@@ -81,5 +81,22 @@ public class ProductService {
         product.setProductDetail(productDetail);
         return productRepository.save(product);
     }
+
+    public double checkInventory(Long productId, int quantity) {
+        Product product = productRepository.findById(productId).orElseThrow(RuntimeException::new);
+        
+        if (product.getStockQuantity() > quantity) {
+            return product.getPrice();
+        }
+        else {
+            return 0;
+        }
+    }   
     
+    public void updateStock(Long productId, int quantity) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(()-> new IllegalStateException("Product with id: " + productId + " does not exist" ));
+
+        product.setStockQuantity(product.getStockQuantity() - quantity);        
+    }
 }

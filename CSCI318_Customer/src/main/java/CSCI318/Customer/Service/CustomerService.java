@@ -8,6 +8,7 @@ package CSCI318.Customer.Service;
 import CSCI318.Customer.Model.Contact;
 import CSCI318.Customer.Repository.CustomerRepository;
 import CSCI318.Customer.Model.Customer;
+import CSCI318.Customer.Model.CustomerAddressPhone;
 import CSCI318.Customer.Repository.ContactRepository;
 import java.util.List;
 import java.util.Objects;
@@ -73,7 +74,7 @@ public class CustomerService {
         if(country != null && country.length() > 0 && !Objects.equals(customer.getCountry(), country)){
             customer.setCountry(country);
         }
-        
+        customerRepository.save(customer);
     }
     
     //updates contact for the customer by id
@@ -82,5 +83,13 @@ public class CustomerService {
         Contact contact = contactRepository.findById(contactId).orElseThrow(RuntimeException::new);
         customer.setContact(contact);
         return customerRepository.save(customer);
+    }
+
+    public CustomerAddressPhone validateCustomer(Long custID) {
+        Customer customer = customerRepository.findById(custID).orElseThrow(RuntimeException::new);
+        System.out.println(customer);
+        CustomerAddressPhone custAddressPhone = new CustomerAddressPhone(customer.getAddress(), customer.getContact().getPhone());
+
+        return custAddressPhone;
     }
 }

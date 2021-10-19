@@ -33,11 +33,7 @@ public class Customer {
     @OneToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "contact_id", referencedColumnName= "contactId")
     private Contact contact;
-    /*
-    @OneToOne(mappedBy = "customer")
-    @JsonIgnore
-    private Order order;
-    */
+   
     
     //Default contstructor
     Customer(){}
@@ -47,6 +43,13 @@ public class Customer {
         this.companyName = companyName;
         this.address = address;
         this.country = country;
+    }
+    
+    public Customer(String companyName, String address, String country, Contact contact){
+        this.companyName = companyName;
+        this.address = address;
+        this.country = country;
+        this.contact = contact;
     }
     
     //Getters for Customer

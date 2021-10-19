@@ -19,11 +19,11 @@ import javax.persistence.Table;
 @Table(name = "OrderTable")
 public class Order {
     //Variables
-    private @Id @GeneratedValue Long orderId;
-    private Long customerId;
+    private @Id @GeneratedValue long orderId;
+    private long customerId;
     private String customerAddress;
     private String customerPhone;
-    private Long productId;
+    private long productId;
     private double productPrice;
     private int quantity;
 
@@ -31,7 +31,7 @@ public class Order {
     public Order(){};
     
     //contstuctor
-    public Order(Long custID, Long productID, int quantity, String customerAddress, String customerPhone, double productPrice) {
+    public Order(long custID, long productID, int quantity, String customerAddress, String customerPhone, double productPrice) {
         this.customerId = custID;
         this.productId = productID;
         this.quantity = quantity;
@@ -41,15 +41,15 @@ public class Order {
     }
     
     //Getters
-    public Long getId() {
+    public long getId() {
         return orderId;
     }
 
-    public Long getCustomerId() {
+    public long getCustomerId() {
         return customerId;
     }
 
-    public Long getProductId() {
+    public long getProductId() {
         return productId;
     }
 

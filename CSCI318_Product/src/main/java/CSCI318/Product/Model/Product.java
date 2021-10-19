@@ -49,6 +49,14 @@ public class Product {
         this.stockQuantity = stockQuantity;
     }
     
+    public Product(String productCategory, String name, double price, int stockQuantity, ProductDetail productDetail) {
+        this.productCategory = productCategory;
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.productDetail = productDetail;
+    }
+    
     //Setters
     public void setProductId(Long productId) {
         this.productId = productId;

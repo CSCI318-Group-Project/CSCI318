@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(OrderService.class);
     
     //Sets the repository for Orders
     @Autowired
@@ -47,6 +49,7 @@ public class OrderService {
         RestTemplate restTemplate = new RestTemplate();
 
         //validate the customersID and return the customers phone and address
+        log.info("Validating Customer: " + custID);
         String customerUrl = "http://localhost:1010/Customer/Validate/";
         ResponseEntity<String> customerResponse = restTemplate.getForEntity(customerUrl + custID , String.class);
         
@@ -65,7 +68,7 @@ public class OrderService {
         double productPrice = prodRoot.doubleValue();
         
         if (productPrice <= 0) {
-               //the productID was not valid or there was not enough stock availible
+               log.error("the productID: " + productID + " was not valid or there was not enough stock availible");
                return;
         }
         

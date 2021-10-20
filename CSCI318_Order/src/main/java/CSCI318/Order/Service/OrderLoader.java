@@ -9,7 +9,7 @@ import static java.lang.Thread.sleep;
 import java.util.Random;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.cloud.stream.function.StreamBridge;
+//import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 
 /**

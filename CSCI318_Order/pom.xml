@@ -36,16 +36,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-                <dependency>
-                        <groupId>org.springframework.cloud</groupId>
-                        <artifactId>spring-cloud-stream-binder-kafka</artifactId>
-                </dependency>
-                <dependency>
-                        <groupId>csci318.demo</groupId>
-                        <artifactId>spring-cloud-kafka-producer</artifactId>
-                        <version>0.0.1-SNAPSHOT</version>
-                        <type>jar</type>
-                </dependency>
 	</dependencies>
 
 	<build>

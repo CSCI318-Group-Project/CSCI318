@@ -82,15 +82,8 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public double checkInventory(Long productId, int quantity) {
-        Product product = productRepository.findById(productId).orElseThrow(RuntimeException::new);
-        
-        if (product.getStockQuantity() > quantity) {
-            return product.getPrice();
-        }
-        else {
-            return 0;
-        }
+    public boolean validateInventory(Long productId) {
+        return productRepository.findById(productId).isPresent();
     }   
     
     public void updateStock(Long productId, int quantity) {

@@ -43,43 +43,132 @@ public class OrderService {
     public Optional<Order> getOrder(Long orderid){
         return orderRepository.findById(orderid);
     }
-
-    //adds a new order to the repository
-    public void addNewOrder(Long custID, Long productID, int quantity) throws JsonProcessingException{
+    
+    public boolean validateCustomer(Long custID){
         RestTemplate restTemplate = new RestTemplate();
-
-        //validate the customersID and return the customers phone and address
+        //validate the customersID 
+        
         log.info("Validating Customer: " + custID);
         String customerUrl = "http://localhost:1010/Customer/Validate/";
         ResponseEntity<String> customerResponse = restTemplate.getForEntity(customerUrl + custID , String.class);
+        //log.info(customerResponse.toString());
+        if(customerResponse.getBody().contains("false")){
+            return false;
+        }
+        else
+            return true;
+    }
+    
+    public String getCustomerAddress(Long custID)throws JsonProcessingException{
+        RestTemplate restTemplate = new RestTemplate();
         
+        String customerUrl = "http://localhost:1010/Customer/";
+        ResponseEntity<String> customerResponse = restTemplate.getForEntity(customerUrl + custID , String.class);
+        //log.info(customerResponse.toString());
         ObjectMapper mapper = new ObjectMapper();
         JsonNode custRoot = mapper.readTree(customerResponse.getBody());
+        String address = custRoot.path("address").toString();
+        //log.info(address);
+        return address;
+    }
+    
+    public String getCustomerPhone(Long custID)throws JsonProcessingException{
+        RestTemplate restTemplate = new RestTemplate();
         
-        String customerAddress = custRoot.path("address").toString().replace("\"", "");
-        String customerPhone = custRoot.path("phone").toString().replace("\"", "");
-
-        //validate the productID and return the products price if there is enough stock
-        String productUrl = "http://localhost:2020/Product/CheckInventory/";
-        ResponseEntity<String> productResponse = restTemplate.getForEntity(productUrl + productID + "/" + quantity , String.class);
-        System.out.println(productResponse);
-
-        JsonNode prodRoot = mapper.readTree(productResponse.getBody());
-        double productPrice = prodRoot.doubleValue();
+        String customerUrl = "http://localhost:1010/Customer/";
+        ResponseEntity<String> customerResponse = restTemplate.getForEntity(customerUrl + custID , String.class);
+        //log.info(customerResponse.toString());
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode custRoot = mapper.readTree(customerResponse.getBody());
+        String phone = custRoot.path("phone").toString();
+        //log.info(phone);
+        return phone;
+    }
+    
+    public boolean validateProduct(Long productID){
+        RestTemplate restTemplate = new RestTemplate(); 
         
-        if (productPrice <= 0) {
-               log.error("the productID: " + productID + " was not valid or there was not enough stock availible");
-               return;
+        log.info("Validating Product: " + productID);
+        String productUrl = "http://localhost:2020/Product/Validate/";
+        ResponseEntity<String> productResponse = restTemplate.getForEntity(productUrl + productID , String.class);
+        //log.info(productResponse.toString());
+        if(productResponse.getBody().contains("false")){
+            return false;
         }
+        else
+            return true;
+    }
+    
+    public boolean checkProductQuantity(Long productID, int quantity)throws JsonProcessingException{
+        RestTemplate restTemplate = new RestTemplate();
         
-        //Create the order
-        Order order = new Order(custID, productID, quantity, customerAddress, customerPhone, productPrice);
-        orderRepository.save(order); 
+        String url = "http://localhost:2020/Product/";
+        ResponseEntity<String> productResponse = restTemplate.getForEntity(url + productID , String.class);
+        //log.info(productResponse.toString());
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode custRoot = mapper.readTree(productResponse.getBody());
+        int prodQuantity = custRoot.path("stockQuantity").asInt();
+        //log.info("stockQuantity" + Integer.toString(prodQuantity));
         
+        return quantity<=prodQuantity;
+    }
+    
+    public double getProductPrice(Long productID)throws JsonProcessingException{
+        RestTemplate restTemplate = new RestTemplate();
+        
+        String url = "http://localhost:2020/Product/";
+        ResponseEntity<String> productResponse = restTemplate.getForEntity(url + productID , String.class);
+        //log.info(productResponse.toString());
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode custRoot = mapper.readTree(productResponse.getBody());
+        double price = custRoot.path("price").asDouble();
+        //log.info(Double.toString(price));
+        return price;
+    }
+    
+    public void updateStock(Long productID, int quantity){
+        RestTemplate restTemplate = new RestTemplate();
         //Update the product DB to reflect the change in quantity
         String productUpdateUrl = "http://localhost:2020/Product/UpdateStock/";
         ResponseEntity<String> productUpdateResponse = restTemplate.getForEntity(productUpdateUrl + productID + "/" + quantity , String.class);
-        System.out.println(productUpdateResponse);
+        //log.info(productUpdateResponse.toString());  
+    }
+
+    //adds a new order to the repository
+    public void addNewOrder(Long custID, Long productID, int quantity) throws JsonProcessingException{
+        String address, phone;
+        double price;
+        
+        if(validateCustomer(custID)){
+            address = getCustomerAddress(custID);
+            phone = getCustomerPhone(custID);
+        }
+        else{
+            log.error("Customer ID: " + custID + " is invalid");
+            return;
+        }
+        
+        if(validateProduct(productID)){
+            if(checkProductQuantity(productID, quantity)){
+                price = getProductPrice(productID);
+            }
+            else{
+                log.error("Product ID: " + productID + " has not got the sufficient quantity to make and order");
+                return;
+            }    
+        }
+        else{
+            log.error("Product ID: " + productID + " is invalid");
+            return;
+        }
+        
+        Order order = new Order(custID, productID, quantity, address, phone, price);
+        log.info("Adding order " + order.toString());
+        orderRepository.save(order); 
+        
+        log.info("Updating product ID: " + productID + " stock level with -" + quantity);
+        updateStock(productID, quantity);
+         
     }
        
 }

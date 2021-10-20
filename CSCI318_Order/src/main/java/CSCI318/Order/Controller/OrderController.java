@@ -44,6 +44,6 @@ public class OrderController {
   //Post request that creates a new order
   @PostMapping("/Order/CreateOrder")
   public void newOrders(@RequestParam Long custID, @RequestParam long productID, @RequestParam int quantity) throws JsonProcessingException{
-    orderService.addNewOrder(custID, productID, quantity);
+        orderService.addNewOrder(custID, productID, quantity);
   }
 }

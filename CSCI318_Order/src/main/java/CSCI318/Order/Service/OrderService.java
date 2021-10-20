@@ -7,6 +7,7 @@ package CSCI318.Order.Service;
 
 
 import CSCI318.Order.Model.Order;
+import CSCI318.Order.Model.OrderEvent;
 import CSCI318.Order.Repository.OrderRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -27,11 +29,18 @@ import org.springframework.web.client.RestTemplate;
 public class OrderService {
     private final OrderRepository orderRepository;
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(OrderService.class);
+    private ApplicationEventPublisher publisher;
     
     //Sets the repository for Orders
     @Autowired
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository, ApplicationEventPublisher publisher) {
        this.orderRepository = orderRepository;
+       this.publisher = publisher;
+    }
+    
+    public void recordEvent(Order order) {
+        OrderEvent orderEvent = new OrderEvent(order);
+        publisher.publishEvent(orderEvent);
     }
     
     //returns a list of all orders in the repositoy
@@ -163,12 +172,16 @@ public class OrderService {
         }
         
         Order order = new Order(custID, productID, quantity, address, phone, price);
-        log.info("Adding order " + order.toString());
-        orderRepository.save(order); 
+        
+        assert order != null;
+        orderRepository.save(order);
+        log.info("Order added" + order.toString());
+        recordEvent(order);
+        log.info("OrderEvent recorded" + order.toString());
         
         log.info("Updating product ID: " + productID + " stock level with -" + quantity);
         updateStock(productID, quantity);
          
     }
-       
+    
 }

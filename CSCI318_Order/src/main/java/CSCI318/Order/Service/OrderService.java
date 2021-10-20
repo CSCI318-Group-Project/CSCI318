@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(OrderService.class);
     private ApplicationEventPublisher publisher;
+    private StreamBridge streamBridge;
     
     //Sets the repository for Orders
     @Autowired
@@ -38,9 +40,10 @@ public class OrderService {
        this.publisher = publisher;
     }
     
-    public void recordEvent(Order order) {
+    public OrderEvent recordEvent(Order order) {
         OrderEvent orderEvent = new OrderEvent(order);
         publisher.publishEvent(orderEvent);
+        return orderEvent;
     }
     
     //returns a list of all orders in the repositoy
@@ -172,16 +175,24 @@ public class OrderService {
         }
         
         Order order = new Order(custID, productID, quantity, address, phone, price);
-        
         assert order != null;
         orderRepository.save(order);
         log.info("Order added" + order.toString());
-        recordEvent(order);
-        log.info("OrderEvent recorded" + order.toString());
         
+        OrderEvent orderEvent = recordEvent(order);
+        log.info("OrderEvent recorded" + order.toString());
+       
         log.info("Updating product ID: " + productID + " stock level with -" + quantity);
         updateStock(productID, quantity);
-         
+        /*
+        try{
+            while(!Thread.currentThread().isInterrupted()){
+            streamBridge.send("order-outbound", orderEvent);
+            Thread.sleep(1200);
+            }
+        }
+        catch(InterruptedException ignored){}
+        */
     }
     
 }

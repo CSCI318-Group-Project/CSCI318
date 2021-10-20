@@ -9,6 +9,7 @@ import static java.lang.Thread.sleep;
 import java.util.Random;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 
 /**
@@ -41,10 +42,9 @@ public class OrderLoader implements CommandLineRunner {
             }
             quantity = getRandom();
             //log.info("Quantity: " + Integer.toString(quantity));
-        
+       
             orderService.addNewOrder(custID, productID, quantity); 
             i++;
-            sleep(2000);
         }
         log.info("Finished adding orders to the database");
     }

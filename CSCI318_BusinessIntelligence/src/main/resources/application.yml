@@ -1,29 +1,11 @@
 server.port: 4040
-spring.cloud.stream:
-  bindings:
-    consume-in-0:
-      destination: product-topic
-  kafka.binder:
-    configuration:
-      commit.interval.ms: 1000
-    brokers: localhost:4040
-    serdeError: logAndContinue
-  kafka.bindings:
-    consume-in-0:
-      consumer:
-        configuration:
-          default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-          default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
-          spring.json.trusted.packages: '*'
-          spring.json.value.default.type: csci318.demo.model.ProductQuantity
-
 spring.cloud.stream.bindings:
   process-in-0:
         destination: order-topic
   process-out-0:
         destination: product-topic
 spring.cloud.stream.kafka.streams.binder:
-  brokers: localhost:4040
+  brokers: localhost:9092
   configuration:
     commit.interval.ms: 1000
   serdeError: logAndContinue

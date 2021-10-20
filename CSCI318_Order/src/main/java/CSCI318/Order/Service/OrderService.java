@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(OrderService.class);
     private ApplicationEventPublisher publisher;
-    //private StreamBridge streamBridge;
+    private StreamBridge streamBridge;
     
     //Sets the repository for Orders
     @Autowired
@@ -40,10 +40,9 @@ public class OrderService {
        this.publisher = publisher;
     }
     
-    public OrderEvent recordEvent(Order order) {
+    public void recordEvent(Order order) {
         OrderEvent orderEvent = new OrderEvent(order);
         publisher.publishEvent(orderEvent);
-        return orderEvent;
     }
     
     //returns a list of all orders in the repositoy
@@ -138,6 +137,19 @@ public class OrderService {
         return price;
     }
     
+    public String getProductName(Long productID)throws JsonProcessingException{
+        RestTemplate restTemplate = new RestTemplate();
+        
+        String url = "http://localhost:2020/Product/";
+        ResponseEntity<String> productResponse = restTemplate.getForEntity(url + productID , String.class);
+        //log.info(productResponse.toString());
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode custRoot = mapper.readTree(productResponse.getBody());
+        String name = custRoot.path("name").toString();
+        //log.info("ProductName: " + name);
+        return name;
+    } 
+    
     public void updateStock(Long productID, int quantity){
         RestTemplate restTemplate = new RestTemplate();
         //Update the product DB to reflect the change in quantity
@@ -148,7 +160,7 @@ public class OrderService {
 
     //adds a new order to the repository
     public void addNewOrder(Long custID, Long productID, int quantity) throws JsonProcessingException{
-        String address, phone;
+        String address, phone, name;
         double price;
         
         if(validateCustomer(custID)){
@@ -162,6 +174,7 @@ public class OrderService {
         
         if(validateProduct(productID)){
             if(checkProductQuantity(productID, quantity)){
+                name = getProductName(productID);
                 price = getProductPrice(productID);
             }
             else{
@@ -174,26 +187,32 @@ public class OrderService {
             return;
         }
         
-        Order order = new Order(custID, productID, quantity, address, phone, price);
+        Order order = new Order(custID, productID, quantity, address, phone, name, price);
         assert order != null;
         orderRepository.save(order);
         log.info("Order added" + order.toString());
         
-        OrderEvent orderEvent = recordEvent(order);
+        recordEvent(order);
+        OrderEvent orderEvent = new OrderEvent(order);
+        assert orderEvent != null;
         log.info("OrderEvent recorded" + order.toString());
        
         log.info("Updating product ID: " + productID + " stock level with -" + quantity);
         updateStock(productID, quantity);
         
-        /*
+        //sendOrder(orderEvent);
+        
+    }
+    
+    public void sendOrder(OrderEvent orderEvent){
         try{
             while(!Thread.currentThread().isInterrupted()){
             streamBridge.send("order-outbound", orderEvent);
             Thread.sleep(1200);
+            log.info("Order sent");
             }
         }
         catch(InterruptedException ignored){}
-        */
     }
     
 }

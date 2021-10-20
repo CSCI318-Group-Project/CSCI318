@@ -24,6 +24,7 @@ public class Order {
     private String customerAddress;
     private String customerPhone;
     private long productId;
+    private String productName;
     private double productPrice;
     private int quantity;
 
@@ -31,12 +32,13 @@ public class Order {
     public Order(){};
     
     //contstuctor
-    public Order(long custID, long productID, int quantity, String customerAddress, String customerPhone, double productPrice) {
+    public Order(long custID, long productID, int quantity, String customerAddress, String customerPhone, String productName, double productPrice) {
         this.customerId = custID;
         this.productId = productID;
         this.quantity = quantity;
         this.customerAddress = customerAddress;
         this.customerPhone = customerPhone;
+        this.productName = productName;
         this.productPrice = productPrice;
     }
     
@@ -64,6 +66,10 @@ public class Order {
     public double getProductPrice() {
         return productPrice;
     }
+    
+    public String getProductName() {
+        return productName;
+    }
 
     public int getQuantity() {
         return quantity;
@@ -77,6 +83,7 @@ public class Order {
         hash = 53 * hash + Objects.hashCode(this.customerId);
         hash = 53 * hash + Objects.hashCode(this.customerAddress);
         hash = 53 * hash + Objects.hashCode(this.customerPhone);
+        hash = 53 * hash + Objects.hashCode(this.productName);
         hash = 53 * hash + this.quantity;
         return hash;
     }
@@ -111,11 +118,14 @@ public class Order {
         if (!Objects.equals(this.orderId, other.orderId)) {
             return false;
         }
+        if (!Objects.equals(this.productName, other.productName)) {
+            return false;
+        }
         return Objects.equals(this.orderId, other.orderId);
     }
 
     @Override
     public String toString() {
-        return "Order{" + "orderId=" + orderId + ", customerId=" + customerId + ", productId=" + productId + ", quantity=" + quantity + '}';
+        return "Order{" + "orderId=" + orderId + ", customerId=" + customerId + ", productId=" + productId + ", productName="+ productName+ ", productPrice=" + productPrice  + ", quantity=" + quantity + '}';
     }                                                                                                                       
 }

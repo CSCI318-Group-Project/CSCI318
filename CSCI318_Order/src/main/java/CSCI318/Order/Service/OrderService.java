@@ -146,6 +146,7 @@ public class OrderService {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode custRoot = mapper.readTree(productResponse.getBody());
         String name = custRoot.path("name").toString();
+        
         //log.info("ProductName: " + name);
         return name;
     } 

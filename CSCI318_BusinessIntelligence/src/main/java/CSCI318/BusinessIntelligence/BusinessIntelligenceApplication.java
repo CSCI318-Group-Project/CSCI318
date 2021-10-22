@@ -17,9 +17,6 @@ public class BusinessIntelligenceApplication {
 		SpringApplication.run(BusinessIntelligenceApplication.class, args);
 	}
         
-        @Bean
-	public Consumer<ProductQuantity> consume() {
-		return input -> log.info(input.toString());
-	}
+        
 
 }

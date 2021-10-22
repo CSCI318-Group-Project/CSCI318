@@ -30,17 +30,6 @@ public class OrderEvent {
     //Default contstructor
     public OrderEvent(){};
     
-    //contstuctor
-    public OrderEvent(Order order) {
-        super();
-        this.setCustomerId(Long.toString(order.getCustomerId()));
-        this.setProductId(Long.toString(order.getProductId()));
-        this.setQuantity(Integer.toString(order.getQuantity()));
-        this.setCustomerAddress(order.getCustomerAddress());
-        this.setCustomerPhone(order.getCustomerPhone());
-        this.setProductPrice(Double.toString(order.getProductPrice()));
-    }
-    
     //Getters
     public long getId() {
         return orderId;

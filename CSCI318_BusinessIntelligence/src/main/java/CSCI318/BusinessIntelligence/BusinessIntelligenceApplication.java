@@ -1,6 +1,7 @@
 package CSCI318.BusinessIntelligence;
 
-import CSCI318.BuisnessIntelligence.Model.ProductQuantity;
+import CSCI318.BusinessIntelligence.Model.OrderEvent;
+import CSCI318.BusinessIntelligence.Model.ProductQuantity;
 import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,11 @@ public class BusinessIntelligenceApplication {
 		SpringApplication.run(BusinessIntelligenceApplication.class, args);
 	}
         
-        
+        @Bean
+	public Consumer<OrderEvent> log() {
+	    return orderEvent -> {
+	        System.out.println("Received: " + orderEvent);
+	    };
+	}
 
 }

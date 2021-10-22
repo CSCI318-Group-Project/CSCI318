@@ -1,4 +1,4 @@
-package CSCI318.BuisnessIntelligence.Model;
+package CSCI318.BusinessIntelligence.Model;
 
 public class ProductQuantity {
     private String name;

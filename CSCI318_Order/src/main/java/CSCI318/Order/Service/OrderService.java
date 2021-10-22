@@ -35,9 +35,10 @@ public class OrderService {
     
     //Sets the repository for Orders
     @Autowired
-    public OrderService(OrderRepository orderRepository, ApplicationEventPublisher publisher) {
+    public OrderService(OrderRepository orderRepository, ApplicationEventPublisher publisher, StreamBridge streamBridge) {
        this.orderRepository = orderRepository;
        this.publisher = publisher;
+       this.streamBridge = streamBridge;
     }
     
     public void recordEvent(Order order) {
@@ -201,19 +202,19 @@ public class OrderService {
         log.info("Updating product ID: " + productID + " stock level with -" + quantity);
         updateStock(productID, quantity);
         
-        //sendOrder(orderEvent);
+        sendOrder(orderEvent);
         
     }
     
     public void sendOrder(OrderEvent orderEvent){
-        try{
+        //try{
             while(!Thread.currentThread().isInterrupted()){
             streamBridge.send("order-outbound", orderEvent);
-            Thread.sleep(1200);
-            log.info("Order sent");
+            //Thread.sleep(1200);
+            log.info("Order sent: " + orderEvent.toString());
             }
-        }
-        catch(InterruptedException ignored){}
+        //}
+        //catch(InterruptedException ignored){}
     }
     
 }

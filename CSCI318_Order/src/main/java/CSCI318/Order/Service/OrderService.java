@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author liamt
  */
+
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
@@ -205,16 +206,20 @@ public class OrderService {
         sendOrder(orderEvent);
         
     }
-    
+    /*
     public void sendOrder(OrderEvent orderEvent){
-        //try{
+    
+    }
+    */
+    public void sendOrder(OrderEvent orderEvent){
+        try{
             while(!Thread.currentThread().isInterrupted()){
             streamBridge.send("order-outbound", orderEvent);
-            //Thread.sleep(1200);
+            Thread.sleep(1200);
             log.info("Order sent: " + orderEvent.toString());
             }
-        //}
-        //catch(InterruptedException ignored){}
+        }
+        catch(InterruptedException ignored){}
     }
     
 }

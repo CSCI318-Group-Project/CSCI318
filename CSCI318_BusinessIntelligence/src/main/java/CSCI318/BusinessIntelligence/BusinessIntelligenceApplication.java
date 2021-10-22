@@ -20,8 +20,8 @@ public class BusinessIntelligenceApplication {
         
         @Bean
 	public Consumer<OrderEvent> log() {
-	    return orderEvent -> {
-	        System.out.println("Received: " + orderEvent);
+	    return productQuantity -> {
+	        System.out.println("Received: " + productQuantity);
 	    };
 	}
 

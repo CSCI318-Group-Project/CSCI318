@@ -5,10 +5,13 @@
  */
 package CSCI318.Order.Service;
 
+import CSCI318.Order.Model.OrderEvent;
 import static java.lang.Thread.sleep;
 import java.util.Random;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.cloud.stream.function.StreamBridge;
 //import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 
@@ -20,9 +23,12 @@ import org.springframework.stereotype.Component;
 public class OrderLoader implements CommandLineRunner {
     private OrderService orderService;
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(OrderLoader.class);
+    @Autowired
+    private StreamBridge streamBridge;
     
-    public OrderLoader(OrderService orderService){
+    public OrderLoader(OrderService orderService, StreamBridge streamBridge){
         this.orderService = orderService;
+        this.streamBridge = streamBridge;
     }
     
     @Override
@@ -43,7 +49,13 @@ public class OrderLoader implements CommandLineRunner {
             quantity = getRandom();
             //log.info("Quantity: " + Integer.toString(quantity));
        
-            orderService.addNewOrder(custID, productID, quantity); 
+            OrderEvent orderEvent = orderService.addNewOrder(custID, productID, quantity); 
+            if(orderEvent != null){
+                sendOrder(orderEvent);
+            }
+            else{
+                log.error("orderEvent is null");
+            }
             i++;
         }
         log.info("Finished adding orders to the database");
@@ -52,5 +64,18 @@ public class OrderLoader implements CommandLineRunner {
     public int getRandom() {
         Random random = new Random();
     return random.nextInt(10 - 1) + 1;
-}
+    }
+    
+    
+    public void sendOrder(OrderEvent orderEvent){
+        try{
+            while(!Thread.currentThread().isInterrupted()){
+            streamBridge.send("order-outbound", orderEvent);
+            Thread.sleep(1200);
+            log.info("Order sent: " + orderEvent.toString());
+            }
+        }
+        catch(InterruptedException ignored){}
+    }
+    
 }

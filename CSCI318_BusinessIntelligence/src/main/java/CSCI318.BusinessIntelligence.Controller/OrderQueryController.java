@@ -1,6 +1,6 @@
 package CSCI318.BusinessIntelligence;
 
-
+import CSCI318.BusinessIntelligence.Service.ProductInteractiveQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

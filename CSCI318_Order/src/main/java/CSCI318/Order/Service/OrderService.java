@@ -32,14 +32,14 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(OrderService.class);
     private ApplicationEventPublisher publisher;
-    private StreamBridge streamBridge;
+    
+    
     
     //Sets the repository for Orders
     @Autowired
-    public OrderService(OrderRepository orderRepository, ApplicationEventPublisher publisher, StreamBridge streamBridge) {
+    public OrderService(OrderRepository orderRepository, ApplicationEventPublisher publisher) {
        this.orderRepository = orderRepository;
        this.publisher = publisher;
-       this.streamBridge = streamBridge;
     }
     
     public void recordEvent(Order order) {
@@ -162,7 +162,7 @@ public class OrderService {
     }
 
     //adds a new order to the repository
-    public void addNewOrder(Long custID, Long productID, int quantity) throws JsonProcessingException{
+    public OrderEvent addNewOrder(Long custID, Long productID, int quantity) throws JsonProcessingException{
         String address, phone, name;
         double price;
         
@@ -172,7 +172,7 @@ public class OrderService {
         }
         else{
             log.error("Customer ID: " + custID + " is invalid");
-            return;
+            return null;
         }
         
         if(validateProduct(productID)){
@@ -182,12 +182,12 @@ public class OrderService {
             }
             else{
                 log.error("Product ID: " + productID + " has not got the sufficient quantity to make and order");
-                return;
+                return null;
             }    
         }
         else{
             log.error("Product ID: " + productID + " is invalid");
-            return;
+            return null;
         }
         
         Order order = new Order(custID, productID, quantity, address, phone, name, price);
@@ -203,23 +203,7 @@ public class OrderService {
         log.info("Updating product ID: " + productID + " stock level with -" + quantity);
         updateStock(productID, quantity);
         
-        sendOrder(orderEvent);
-        
-    }
-    /*
-    public void sendOrder(OrderEvent orderEvent){
-    
-    }
-    */
-    public void sendOrder(OrderEvent orderEvent){
-        try{
-            while(!Thread.currentThread().isInterrupted()){
-            streamBridge.send("order-outbound", orderEvent);
-            Thread.sleep(1200);
-            log.info("Order sent: " + orderEvent.toString());
-            }
-        }
-        catch(InterruptedException ignored){}
+        return orderEvent;
     }
     
 }

@@ -18,11 +18,11 @@ public class BusinessIntelligenceApplication {
 		SpringApplication.run(BusinessIntelligenceApplication.class, args);
 	}
         
-        @Bean
+        /*@Bean
 	public Consumer<OrderEvent> log() {
 	    return productQuantity -> {
 	        System.out.println("Received: " + productQuantity);
 	    };
-	}
+	}*/
 
 }

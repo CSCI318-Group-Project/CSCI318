@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.kafka.core.KafkaTemplate;
 //import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 
@@ -24,11 +25,13 @@ public class OrderLoader implements CommandLineRunner {
     private OrderService orderService;
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(OrderLoader.class);
     @Autowired
-    private StreamBridge streamBridge;
+    //private StreamBridge streamBridge;
+    private KafkaTemplate<String, OrderEvent> kafkaTemplate;
     
-    public OrderLoader(OrderService orderService, StreamBridge streamBridge){
+    public OrderLoader(OrderService orderService,KafkaTemplate<String, OrderEvent> kafkaTemplate /*StreamBridge streamBridge*/){
         this.orderService = orderService;
-        this.streamBridge = streamBridge;
+        //this.streamBridge = streamBridge;
+        this.kafkaTemplate = kafkaTemplate;
     }
     
     @Override
@@ -66,16 +69,22 @@ public class OrderLoader implements CommandLineRunner {
     return random.nextInt(10 - 1) + 1;
     }
     
-    
+    /*
     public void sendOrder(OrderEvent orderEvent){
         try{
             while(!Thread.currentThread().isInterrupted()){
-            streamBridge.send("order-outbound", orderEvent);
-            Thread.sleep(1200);
-            log.info("Order sent: " + orderEvent.toString());
-            }
-        }
+                streamBridge.send("order-outbound", orderEvent);
+                Thread.sleep(1200);
+                log.info("Order sent: " + orderEvent.toString());
+           }
+       }
         catch(InterruptedException ignored){}
+    }
+    */
+    
+     public void sendOrder(OrderEvent orderEvent){
+                kafkaTemplate.send("order-outbound", orderEvent);
+                log.info("Order sent: " + orderEvent.toString());
     }
     
 }

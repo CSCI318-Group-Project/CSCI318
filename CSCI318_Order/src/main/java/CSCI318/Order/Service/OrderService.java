@@ -81,6 +81,7 @@ public class OrderService {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode custRoot = mapper.readTree(customerResponse.getBody());
         String address = custRoot.path("address").toString();
+        address = address.replace("\"","");
         //log.info(address);
         return address;
     }
@@ -93,8 +94,11 @@ public class OrderService {
         //log.info(customerResponse.toString());
         ObjectMapper mapper = new ObjectMapper();
         JsonNode custRoot = mapper.readTree(customerResponse.getBody());
-        String phone = custRoot.path("phone").toString();
-        //log.info(phone);
+        //log.warn(">>>" + custRoot.toString());
+        //log.warn(">>>" + customerResponse.getBody());
+        String phone = custRoot.path("contact").path("phone").toString();
+        //log.warn(">>>" + phone);
+        phone = phone.replace("\"","");
         return phone;
     }
     
@@ -148,7 +152,7 @@ public class OrderService {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode custRoot = mapper.readTree(productResponse.getBody());
         String name = custRoot.path("name").toString();
-        
+        name = name.replace("\"","");
         //log.info("ProductName: " + name);
         return name;
     } 
@@ -178,6 +182,7 @@ public class OrderService {
         if(validateProduct(productID)){
             if(checkProductQuantity(productID, quantity)){
                 name = getProductName(productID);
+                //log.info(name);
                 price = getProductPrice(productID);
             }
             else{

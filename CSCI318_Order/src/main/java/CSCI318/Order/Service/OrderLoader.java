@@ -8,6 +8,7 @@ package CSCI318.Order.Service;
 import CSCI318.Order.Model.OrderEvent;
 import static java.lang.Thread.sleep;
 import java.util.Random;
+import javax.transaction.Transactional;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,12 +29,12 @@ public class OrderLoader implements CommandLineRunner {
     private OrderService orderService;
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(OrderLoader.class);
     @Autowired
-    //private StreamBridge streamBridge;
+    private StreamBridge streamBridge;
     //private KafkaTemplate<String, OrderEvent> kafkaTemplate;
     
-    public OrderLoader(OrderService orderService/*,KafkaTemplate<String, OrderEvent> kafkaTemplate StreamBridge streamBridge*/){
+    public OrderLoader(OrderService orderService,StreamBridge streamBridge /*,KafkaTemplate<String, OrderEvent> kafkaTemplate, */){
         this.orderService = orderService;
-        //this.streamBridge = streamBridge;
+        this.streamBridge = streamBridge;
         //this.kafkaTemplate = kafkaTemplate;
     }
     
@@ -57,7 +58,7 @@ public class OrderLoader implements CommandLineRunner {
        
             OrderEvent orderEvent = orderService.addNewOrder(custID, productID, quantity); 
             if(orderEvent != null){
-                //sendOrder(orderEvent);
+                sendOrder(orderEvent);
             }
             else{
                 log.error("orderEvent is null");
@@ -72,7 +73,7 @@ public class OrderLoader implements CommandLineRunner {
     return random.nextInt(10 - 1) + 1;
     }
     
-    /*
+    @Transactional
     public void sendOrder(OrderEvent orderEvent){
         try{
             while(!Thread.currentThread().isInterrupted()){
@@ -83,32 +84,5 @@ public class OrderLoader implements CommandLineRunner {
        }
         catch(InterruptedException ignored){}
     }
-    
-   
-     public void sendOrder(OrderEvent orderEvent){
-                kafkaTemplate.send("order-outbound", orderEvent); 
-                log.info("Order sent: " + orderEvent.toString());
-    }
-     
-    
-    public void sendOrder(OrderEvent orderEvent) {
-            
-    ListenableFuture<SendResult<String, OrderEvent>> future = kafkaTemplate.send("order-outbound", orderEvent);
-	
-    future.addCallback(new ListenableFutureCallback<SendResult<String, OrderEvent>>() {
-
-        @Override
-        public void onSuccess(SendResult<String, OrderEvent> result) {
-            log.info("Sent order=[" + orderEvent.toString() + 
-              "] with offset=[" + result.getRecordMetadata().offset() + "]");
-        }
-        @Override
-        public void onFailure(Throwable ex) {
-            log.error("Unable to send message=[" 
-              + orderEvent.toString() + "] due to : " + ex.getMessage());
-        }
-    });
-    }
-*/
     
 }

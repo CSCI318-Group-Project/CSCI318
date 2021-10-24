@@ -17,12 +17,4 @@ public class BusinessIntelligenceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BusinessIntelligenceApplication.class, args);
 	}
-        
-        /*@Bean
-	public Consumer<OrderEvent> log() {
-	    return productQuantity -> {
-	        System.out.println("Received: " + productQuantity);
-	    };
-	}*/
-
 }

@@ -24,8 +24,8 @@ public class ProductStreamProcessing {
 
     public final static String STATE_STORE = "my-store";
 
-    @Bean
-    public Function<KStream<String, OrderEvent>, KStream<String, ProductQuantity>> Process() {
+     @Bean
+    public Function<KStream<?, OrderEvent>, KStream<String, ProductQuantity>> Process() {
         return inputStream -> {
             KTable<String, Long> brandKTable = inputStream.
                     mapValues(OrderEvent::getProductName).

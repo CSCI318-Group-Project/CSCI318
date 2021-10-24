@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 //import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
 
 /**
  *
@@ -80,11 +83,31 @@ public class OrderLoader implements CommandLineRunner {
        }
         catch(InterruptedException ignored){}
     }
-    */
     
+   
      public void sendOrder(OrderEvent orderEvent){
-                kafkaTemplate.send("order-outbound", orderEvent);
+                kafkaTemplate.send("order-outbound", orderEvent); 
                 log.info("Order sent: " + orderEvent.toString());
     }
+     */
+    
+    public void sendOrder(OrderEvent orderEvent) {
+            
+    ListenableFuture<SendResult<String, OrderEvent>> future = kafkaTemplate.send("order-outbound", orderEvent);
+	
+    future.addCallback(new ListenableFutureCallback<SendResult<String, OrderEvent>>() {
+
+        @Override
+        public void onSuccess(SendResult<String, OrderEvent> result) {
+            log.info("Sent order=[" + orderEvent.toString() + 
+              "] with offset=[" + result.getRecordMetadata().offset() + "]");
+        }
+        @Override
+        public void onFailure(Throwable ex) {
+            log.error("Unable to send message=[" 
+              + orderEvent.toString() + "] due to : " + ex.getMessage());
+        }
+    });
+}
     
 }

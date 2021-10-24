@@ -43,7 +43,7 @@ public class ProductConsumer {
     }
                
 }
-*/
+
 
 @EnableKafka
 @Configuration
@@ -76,3 +76,4 @@ public class ProductConsumer {
     }
                
 }
+*/

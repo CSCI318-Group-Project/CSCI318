@@ -29,12 +29,12 @@ public class OrderLoader implements CommandLineRunner {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(OrderLoader.class);
     @Autowired
     //private StreamBridge streamBridge;
-    private KafkaTemplate<String, OrderEvent> kafkaTemplate;
+    //private KafkaTemplate<String, OrderEvent> kafkaTemplate;
     
-    public OrderLoader(OrderService orderService,KafkaTemplate<String, OrderEvent> kafkaTemplate /*StreamBridge streamBridge*/){
+    public OrderLoader(OrderService orderService/*,KafkaTemplate<String, OrderEvent> kafkaTemplate StreamBridge streamBridge*/){
         this.orderService = orderService;
         //this.streamBridge = streamBridge;
-        this.kafkaTemplate = kafkaTemplate;
+        //this.kafkaTemplate = kafkaTemplate;
     }
     
     @Override
@@ -57,7 +57,7 @@ public class OrderLoader implements CommandLineRunner {
        
             OrderEvent orderEvent = orderService.addNewOrder(custID, productID, quantity); 
             if(orderEvent != null){
-                sendOrder(orderEvent);
+                //sendOrder(orderEvent);
             }
             else{
                 log.error("orderEvent is null");
@@ -89,7 +89,7 @@ public class OrderLoader implements CommandLineRunner {
                 kafkaTemplate.send("order-outbound", orderEvent); 
                 log.info("Order sent: " + orderEvent.toString());
     }
-     */
+     
     
     public void sendOrder(OrderEvent orderEvent) {
             
@@ -108,6 +108,7 @@ public class OrderLoader implements CommandLineRunner {
               + orderEvent.toString() + "] due to : " + ex.getMessage());
         }
     });
-}
+    }
+*/
     
 }

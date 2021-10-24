@@ -21,6 +21,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
  *
  * @author liamt
  */
+/*
 @Configuration
 public class EventProducer {
     
@@ -38,3 +39,4 @@ public class EventProducer {
         return new DefaultKafkaProducerFactory<>(configs);
     }
 }
+*/

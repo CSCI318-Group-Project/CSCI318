@@ -41,9 +41,30 @@ public class OrderLoader implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception{
         log.info("Adding orders to the database...");
-       
-        for(int i = 0; i<5 ; i++){
-            int quantity = 1;
+        
+        OrderEvent O1 = randomOrder();
+        OrderEvent O2 = randomOrder();
+        OrderEvent O3 = randomOrder();
+        
+        
+        if(O1 != null && O2 != null && O3 != null){
+                sendOrders(O1 , O2, O3);
+            }
+            else{
+                log.error("orderEvent is null");
+            }
+            
+        
+        //log.info("Finished adding orders to the database");
+    }
+    
+    public int getRandom() {
+        Random random = new Random();
+    return random.nextInt(10 - 1) + 1;
+    }
+    
+    public OrderEvent randomOrder()throws Exception{
+        int quantity = 1;
             long custID = 0, productID = 0;
             while(custID%2 == 0){ //redo until odd to get correct id between 1-10
                 custID = getRandom();
@@ -57,32 +78,28 @@ public class OrderLoader implements CommandLineRunner {
             //log.info("Quantity: " + Integer.toString(quantity));
        
             OrderEvent orderEvent = orderService.addNewOrder(custID, productID, quantity); 
-            if(orderEvent != null){
-                sendOrder(orderEvent);
-            }
-            else{
-                log.error("orderEvent is null");
-            }
-            i++;
-        }
-        log.info("Finished adding orders to the database");
+            
+            return orderEvent;
     }
-    
-    public int getRandom() {
-        Random random = new Random();
-    return random.nextInt(10 - 1) + 1;
-    }
-    
+            
     @Transactional
-    public void sendOrder(OrderEvent orderEvent){
+    public void sendOrders(OrderEvent orderEvent1, OrderEvent orderEvent2, OrderEvent orderEvent3){
         try{
             while(!Thread.currentThread().isInterrupted()){
-                streamBridge.send("order-outbound", orderEvent);
+                streamBridge.send("order-outbound", orderEvent1);
                 Thread.sleep(1200);
-                log.info("Order sent: " + orderEvent.toString());
+                log.info("Order sent: " + orderEvent1.toString());
+                
+                streamBridge.send("order-outbound", orderEvent2);
+                Thread.sleep(1200);
+                log.info("Order sent: " + orderEvent2.toString());
+                
+                streamBridge.send("order-outbound", orderEvent3);
+                Thread.sleep(1200);
+                log.info("Order sent: " + orderEvent3.toString());
            }
        }
-        catch(InterruptedException ignored){}
+       catch(InterruptedException ignored){}
     }
     
 }

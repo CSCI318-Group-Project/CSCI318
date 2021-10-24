@@ -30,40 +30,14 @@ public class OrderLoader implements CommandLineRunner {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(OrderLoader.class);
     @Autowired
     private StreamBridge streamBridge;
-    //private KafkaTemplate<String, OrderEvent> kafkaTemplate;
+
     
-    public OrderLoader(OrderService orderService,StreamBridge streamBridge /*,KafkaTemplate<String, OrderEvent> kafkaTemplate, */){
+    public OrderLoader(OrderService orderService,StreamBridge streamBridge){
         this.orderService = orderService;
         this.streamBridge = streamBridge;
-        //this.kafkaTemplate = kafkaTemplate;
     }
     
-    @Override
-    public void run(String... strings) throws Exception{
-        log.info("Adding orders to the database...");
-        
-        OrderEvent O1 = randomOrder();
-        OrderEvent O2 = randomOrder();
-        OrderEvent O3 = randomOrder();
-        
-        
-        if(O1 != null && O2 != null && O3 != null){
-                sendOrders(O1 , O2, O3);
-            }
-            else{
-                log.error("orderEvent is null");
-            }
-            
-        
-        //log.info("Finished adding orders to the database");
-    }
-    
-    public int getRandom() {
-        Random random = new Random();
-    return random.nextInt(10 - 1) + 1;
-    }
-    
-    public OrderEvent randomOrder()throws Exception{
+     public OrderEvent randomOrder()throws Exception{
         int quantity = 1;
             long custID = 0, productID = 0;
             while(custID%2 == 0){ //redo until odd to get correct id between 1-10
@@ -102,4 +76,28 @@ public class OrderLoader implements CommandLineRunner {
        catch(InterruptedException ignored){}
     }
     
+    @Override
+    public void run(String... strings) throws Exception{
+        log.info("Adding orders to the database...");
+        
+        OrderEvent O1 = randomOrder();
+        OrderEvent O2 = randomOrder();
+        OrderEvent O3 = randomOrder();
+        
+        
+        if(O1 != null && O2 != null && O3 != null){
+                sendOrders(O1 , O2, O3);
+            }
+            else{
+                log.error("orderEvent is null");
+            }
+            
+        
+        //log.info("Finished adding orders to the database");
+    }
+    
+    public int getRandom() {
+        Random random = new Random();
+    return random.nextInt(10 - 1) + 1;
+    }
 }

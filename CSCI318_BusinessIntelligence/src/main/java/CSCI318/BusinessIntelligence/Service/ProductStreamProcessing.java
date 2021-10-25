@@ -27,7 +27,7 @@ public class ProductStreamProcessing {
      @Bean
     public Function<KStream<?, OrderEvent>, KStream<String, ProductQuantity>> Process() {
         return inputStream -> {
-            KTable<String, Long> brandKTable = inputStream.
+            KTable<String, Long> orderKTable = inputStream.
                     mapValues(OrderEvent::getProductName).
                     groupBy((keyIgnored, value) -> value).
                     count(
@@ -35,7 +35,7 @@ public class ProductStreamProcessing {
                                     withKeySerde(Serdes.String()).
                                     withValueSerde(Serdes.Long())
                     );
-            KStream<String, ProductQuantity> productQuantityStream = brandKTable.
+            KStream<String, ProductQuantity> productQuantityStream = orderKTable.
                     toStream().
                     map((k, v) -> KeyValue.pair(k, new ProductQuantity(k, v)));
             // use the following code for testing

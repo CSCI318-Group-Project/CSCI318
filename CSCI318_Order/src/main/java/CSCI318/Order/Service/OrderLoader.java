@@ -39,21 +39,21 @@ public class OrderLoader implements CommandLineRunner {
     
      public OrderEvent randomOrder()throws Exception{
         int quantity = 1;
-            long custID = 0, productID = 0;
-            while(custID%2 == 0){ //redo until odd to get correct id between 1-10
-                custID = getRandom();
-                //log.info("CustID: " + Long.toString(custID));
-            }
-            while(productID%2 == 0){ //redo until odd to get correct id between 1-10
-                productID = getRandom();
-                //log.info("ProductID: " + Long.toString(productID));
-            }
-            quantity = getRandom();
-            //log.info("Quantity: " + Integer.toString(quantity));
-       
-            OrderEvent orderEvent = orderService.addNewOrder(custID, productID, quantity); 
-            
-            return orderEvent;
+        long custID = 0, productID = 0;
+        while(custID%2 == 0){ //redo until odd to get correct id between 1-10
+            custID = getRandom();
+            //log.info("CustID: " + Long.toString(custID));
+        }
+        while(productID%2 == 0){ //redo until odd to get correct id between 1-10
+            productID = getRandom();
+            //log.info("ProductID: " + Long.toString(productID));
+        }
+        quantity = getRandom();
+        //log.info("Quantity: " + Integer.toString(quantity));
+
+        OrderEvent orderEvent = orderService.addNewOrder(custID, productID, quantity); 
+
+        return orderEvent;
     }
             
     @Transactional
@@ -87,10 +87,10 @@ public class OrderLoader implements CommandLineRunner {
         
         if(O1 != null && O2 != null && O3 != null){
                 sendOrders(O1 , O2, O3);
-            }
-            else{
-                log.error("orderEvent is null");
-            }
+        }
+        else{
+            log.error("orderEvent is null");
+        }
             
         
         //log.info("Finished adding orders to the database");

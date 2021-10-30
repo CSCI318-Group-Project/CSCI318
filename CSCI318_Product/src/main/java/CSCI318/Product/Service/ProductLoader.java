@@ -28,11 +28,11 @@ public class ProductLoader implements CommandLineRunner {
     @Override  
     public void run(String... strings) throws Exception{
         log.info("Adding products to the database...");
-        productService.addNewProduct(new Product("Shoes" , "Boot", 1, 100 , new ProductDetail("Foot Protection", "Leather")));
-        productService.addNewProduct(new Product("Appliances" , "Breville", 1, 100 , new ProductDetail("Cooks toast", "Stainless Steel")));
-        productService.addNewProduct(new Product("Drinks" , "Coke", 1, 100 , new ProductDetail("Soft Drink", "Coca Cola 375ml Can")));
-        productService.addNewProduct(new Product("Car" , "Rolls Royce", 1, 100 , new ProductDetail("Rolls Royce 1997", "Car")));
-        productService.addNewProduct(new Product("Materials" , "Fertiliser", 1, 100 , new ProductDetail("Grass Fertiliser", "Mulch/Fertiliser")));
+        productService.addNewProduct(new Product("Shoes" , "Boot", 11.00, 10000 , new ProductDetail("Foot Protection", "Leather")));
+        productService.addNewProduct(new Product("Appliances" , "Breville", 3.99, 10000 , new ProductDetail("Cooks toast", "Stainless Steel")));
+        productService.addNewProduct(new Product("Drinks" , "Coke", 6.25, 10000 , new ProductDetail("Soft Drink", "Coca Cola 375ml Can")));
+        productService.addNewProduct(new Product("Car" , "Rolls Royce", 2.10, 10000 , new ProductDetail("Rolls Royce 1997", "Car")));
+        productService.addNewProduct(new Product("Materials" , "Fertiliser", 1.55, 10000 , new ProductDetail("Grass Fertiliser", "Mulch/Fertiliser")));
         log.info("Finished adding products to the database");
     }
     

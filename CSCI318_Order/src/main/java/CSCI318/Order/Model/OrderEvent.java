@@ -25,8 +25,8 @@ public class OrderEvent {
     private String customerPhone;
     private String productId;
     private String productName;
-    private String productPrice;
-    private String quantity;
+    private double productPrice;
+    private int quantity;
 
     //Default contstructor
     public OrderEvent(){};
@@ -36,11 +36,11 @@ public class OrderEvent {
         super();
         this.setCustomerId(Long.toString(order.getCustomerId()));
         this.setProductId(Long.toString(order.getProductId()));
-        this.setQuantity(Integer.toString(order.getQuantity()));
+        this.setQuantity(order.getQuantity());
         this.setCustomerAddress(order.getCustomerAddress());
         this.setCustomerPhone(order.getCustomerPhone());
         this.setProductName(order.getProductName());
-        this.setProductPrice(Double.toString(order.getProductPrice()));
+        this.setProductPrice(order.getProductPrice());
     }
     
     //Getters
@@ -64,7 +64,7 @@ public class OrderEvent {
         return customerPhone;
     }
 
-    public String getProductPrice() {
+    public double getProductPrice() {
         return productPrice;
     }
 
@@ -72,7 +72,7 @@ public class OrderEvent {
         return productName;
     }
     
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
@@ -98,7 +98,7 @@ public class OrderEvent {
         this.customerPhone = phone;
     }
 
-    public void setProductPrice(String price) {
+    public void setProductPrice(double price) {
         this.productPrice = price;
     }
     
@@ -106,7 +106,7 @@ public class OrderEvent {
         this.productName = name;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     

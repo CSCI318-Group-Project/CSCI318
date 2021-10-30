@@ -24,4 +24,14 @@ public class QueryController {
         return productInteractiveQuery.getProductNames();
     }
 
+    @GetMapping("/CustomersProducts/{customerID}")
+    List<String> getAllProductForCustomer(@PathVariable String customerID) {
+        return productInteractiveQuery.getAllProductForCustomer(customerID);
+    }
+
+    @GetMapping("/CustomersOrderValue/{customerID}")
+    double getTotalOrderValueForCustomer(@PathVariable String customerID) {
+        return productInteractiveQuery.getTotalOrderValueForCustomer(customerID);
+    }
+
 }

@@ -47,7 +47,7 @@ public class ProductInteractiveQuery {
         KeyValueIterator<String, CustomerProductOrders> all = productCustomerStore().all();
         while (all.hasNext()) {
             CustomerProductOrders customerProductOrder = all.next().value;
-            String customer_ID = all.next().key;
+            String customer_ID = customerProductOrder.getCustomerID();
             String productName = customerProductOrder.getProductName();
 
             if (customer_ID.equals(customerID)) {
@@ -62,7 +62,7 @@ public class ProductInteractiveQuery {
         KeyValueIterator<String, CustomerProductOrders> all = productCustomerStore().all();
         while (all.hasNext()) {
             CustomerProductOrders customerProductOrder = all.next().value;
-            String customer_ID = all.next().key;
+            String customer_ID = customerProductOrder.getCustomerID();
             int productQuantity = customerProductOrder.getQuantity();
             double productPrice = customerProductOrder.getPrice();
 

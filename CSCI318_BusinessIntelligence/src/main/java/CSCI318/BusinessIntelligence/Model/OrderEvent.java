@@ -5,9 +5,9 @@
  */
 package CSCI318.BusinessIntelligence.Model;
 
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "OrderEventTable")
 public class OrderEvent {
     //Variables
-    private @Id @GeneratedValue long orderId;
+    private @Id long orderId;
     private String customerId;
     private String customerAddress;
     private String customerPhone;
@@ -110,6 +110,7 @@ public class OrderEvent {
         hash = 53 * hash + Objects.hashCode(this.productName);
         hash = 53 * hash + Objects.hashCode(this.productPrice);
         hash = 53 * hash + Objects.hashCode(this.quantity);
+        hash = 53 * hash + Objects.hashCode(new Date());
         return hash;
     }
 

@@ -1,4 +1,4 @@
-package CSCI318.BusinessIntelligence;
+package CSCI318.BusinessIntelligence.Controller;
 
 import CSCI318.BusinessIntelligence.Service.ProductInteractiveQuery;
 import org.springframework.beans.factory.annotation.Autowired;

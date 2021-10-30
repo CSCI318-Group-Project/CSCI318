@@ -41,10 +41,11 @@ public class ProductStreamProcessing {
             inputStream.map((k, v) -> {
                 String customerId = v.getCustomerId();
                 String productName = v.getProductName();
+                int hashCode = v.hashCode();
                 int quantity = v.getQuantity();
                 double productPrice = v.getProductPrice();
                 CustomerProductOrders customerProductOrder = new CustomerProductOrders(customerId, productName, productPrice, quantity);
-                return KeyValue.pair(customerId, customerProductOrder);
+                return KeyValue.pair(customerId + "_" + productName + "_" + hashCode, customerProductOrder);
             }).toTable(
                     Materialized.<String, CustomerProductOrders, KeyValueStore<Bytes, byte[]>>as(PRODUCT_CUSTOMER_STORE).
                             withKeySerde(Serdes.String()).

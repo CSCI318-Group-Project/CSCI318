@@ -5,9 +5,9 @@
  */
 package CSCI318.BusinessIntelligence.Model;
 
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,14 +19,14 @@ import javax.persistence.Table;
 @Table(name = "OrderEventTable")
 public class OrderEvent {
     //Variables
-    private @Id @GeneratedValue long orderId;
+    private @Id long orderId;
     private String customerId;
     private String customerAddress;
     private String customerPhone;
     private String productId;
     private String productName;
-    private String productPrice;
-    private String quantity;
+    private double productPrice;
+    private int quantity;
 
     //Default contstructor
     public OrderEvent(){};
@@ -52,7 +52,7 @@ public class OrderEvent {
         return customerPhone;
     }
 
-    public String getProductPrice() {
+    public double getProductPrice() {
         return productPrice;
     }
 
@@ -60,7 +60,7 @@ public class OrderEvent {
         return productName;
     }
     
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
@@ -86,7 +86,7 @@ public class OrderEvent {
         this.customerPhone = phone;
     }
 
-    public void setProductPrice(String price) {
+    public void setProductPrice(double price) {
         this.productPrice = price;
     }
     
@@ -94,7 +94,7 @@ public class OrderEvent {
         this.productName = name;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     
@@ -110,6 +110,7 @@ public class OrderEvent {
         hash = 53 * hash + Objects.hashCode(this.productName);
         hash = 53 * hash + Objects.hashCode(this.productPrice);
         hash = 53 * hash + Objects.hashCode(this.quantity);
+        hash = 53 * hash + Objects.hashCode(new Date());
         return hash;
     }
 

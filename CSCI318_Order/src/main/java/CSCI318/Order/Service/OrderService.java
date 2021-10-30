@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -32,14 +32,16 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(OrderService.class);
     private ApplicationEventPublisher publisher;
+    private OrderLoader orderLoader;
     
     
     
     //Sets the repository for Orders
     @Autowired
-    public OrderService(OrderRepository orderRepository, ApplicationEventPublisher publisher) {
+    public OrderService(@Lazy OrderLoader orderLoader, OrderRepository orderRepository, ApplicationEventPublisher publisher) {
        this.orderRepository = orderRepository;
        this.publisher = publisher;
+       this.orderLoader = orderLoader;
     }
     
     public void recordEvent(Order order) {
@@ -208,6 +210,9 @@ public class OrderService {
         log.info("Updating product ID: " + productID + " stock level with -" + quantity);
         updateStock(productID, quantity);
         
+        //send the orderEvent to the Order Loader for Kafka
+        orderLoader.sendOrder(orderEvent);
+
         return orderEvent;
     }
     

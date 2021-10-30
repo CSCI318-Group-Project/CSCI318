@@ -1,4 +1,4 @@
-package CSCI318.BusinessIntelligence;
+package CSCI318.BusinessIntelligence.Controller;
 
 import CSCI318.BusinessIntelligence.Service.ProductInteractiveQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,16 @@ public class QueryController {
     @GetMapping("/Product")
     List<String> getAllProduct() {
         return productInteractiveQuery.getProductNames();
+    }
+
+    @GetMapping("/CustomersProducts/{customerID}")
+    List<String> getAllProductForCustomer(@PathVariable String customerID) {
+        return productInteractiveQuery.getAllProductForCustomer(customerID);
+    }
+
+    @GetMapping("/CustomersOrderValue/{customerID}")
+    double getTotalOrderValueForCustomer(@PathVariable String customerID) {
+        return productInteractiveQuery.getTotalOrderValueForCustomer(customerID);
     }
 
 }
